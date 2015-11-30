@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>JS Gallery</title>
+
+	<!-- CSS -->
+	<style type="text/css">
+		body {
+			text-align: center;
+			background-color: gray;
+		}
+
+		.photo {
+			position: relative;
+		}
+		.title{
+			position: absolute;
+			bottom:20px;
+			left:0px;
+			text-align: center;
+			right:0px;
+			font-size:2em;
+			font-weight: bold;
+			color:#979797;
+		}
+		.photos {
+			margin:auto;
+		}
+	</style>
+</head>
+<body>
+	<div class="photos">
+		<div class="photo">
+			<img src="http://placehold.it/600x400">
+			<div class="title">1</div>
+		</div>
+		<div class="photo">
+			<img src="http://placehold.it/600x400">
+			<div class="title">2</div>
+		</div>
+		<div class="photo">
+			<img src="http://placehold.it/600x400">
+			<div class="title">3</div>
+		</div>
+		<div class="photo">
+			<img src="http://placehold.it/600x400">
+			<div class="title">4</div>
+		</div>
+		<div class="photo">
+			<img src="http://placehold.it/600x400">
+			<div class="title">5</div>
+		</div>
+		<div class="photo">
+			<img src="http://placehold.it/600x320">
+			<div class="title">6</div>
+		</div>
+		<div class="photo">
+			<img src="http://placehold.it/600x400">
+			<div class="title">7</div>
+		</div>
+		<div class="photo">
+			<img src="http://placehold.it/600x400">
+			<div class="title">8</div>
+		</div>
+		<div class="photo">
+			<img src="http://placehold.it/600x900">
+			<div class="title">9</div>
+		</div>
+		<div class="photo">
+			<img src="http://placehold.it/900x600">
+			<div class="title">10</div>
+		</div>
+		<div class="photo">
+			<img src="http://placehold.it/600x400">
+			<div class="title">11</div>
+		</div>
+		<div class="photo">
+			<img src="http://placehold.it/600x280">
+			<div class="title">12</div>
+		</div>
+		<div class="photo">
+			<img src="http://placehold.it/600x400">
+			<div class="title">13</div>
+		</div>
+		<div class="photo">
+			<img src="http://placehold.it/600x900">
+			<div class="title">14</div>
+		</div>
+		<div class="photo">
+			<img src="http://placehold.it/600x400">
+			<div class="title">15</div>
+		</div> 
+		<div class="photo">
+			<img src="http://placehold.it/600x400">
+			<div class="title">16</div>
+		</div>
+		<div class="photo">
+			<img src="http://placehold.it/600x900">
+			<div class="title">17</div>
+		</div>
+		<div class="photo">
+			<img src="http://placehold.it/900x600">
+			<div class="title">18</div>
+		</div>
+	</div>
+
+	<!-- Scripts -->
+	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+	<script src="https://rawgit.com/xremix/xGallerify/master/dist/xgallerify.min.js"></script>
+	<script type="text/javascript">
+			$('.photos').gallerify({
+				 margin:5
+			});	
+	</script>
+</body>
+</html>
