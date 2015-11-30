@@ -9,16 +9,36 @@ $.fn.gallerify = function(params){
 	params.width = params.width ? params.width : undefined;
 	params.imagesPerRow = params.imagesPerRow ? params.imagesPerRow : undefined;
 	params.margin = params.margin ? params.margin : undefined;
+	//default, bootstrap, flickr
+	params.mode = params.mode ? params.mode : 'default';
 
 	function getScreenSettings(galleryWidth){
-		breakPoints = "bootstrap";
 		var ret = {
 			itemsPerColumn : -1,
 			maxHeight : 500
 		};
 
 		//Items per column
-		if(breakPoints = "bootstrap"){
+		if(params.mode == "default"){
+			//default MODE
+			if(galleryWidth > 1600){
+				ret.itemsPerColumn = 4;
+			}
+			else if(galleryWidth > 1200){
+				ret.itemsPerColumn = 3;
+			}
+			else if(galleryWidth > 768){
+				ret.itemsPerColumn = 2;
+			}else {
+				ret.itemsPerColumn = 1;
+			}
+			//MAX HEIGHT
+			if(galleryWidth > 768){
+				ret.maxHeight = screen.height * 0.6;
+			}
+
+		}else if(params.mode == "bootstrap"){
+			//bootstrap MODE
 			if(galleryWidth > 1200){
 				ret.itemsPerColumn = 4;
 			}
@@ -28,9 +48,15 @@ $.fn.gallerify = function(params){
 			else if(galleryWidth > 768){
 				ret.itemsPerColumn = 2;
 			}else {
-				ret.itemsPerColumn = 1;
+				ret.itemsPerColumn = 0.4;
 			}
-		}else if(breakPoints == "flickr"){
+			//MAX HEIGHT
+			if(galleryWidth > 768){
+				ret.maxHeight = screen.height * 0.5;
+			}
+
+		}else if(params.mode == "flickr"){
+			//flickr MODE
 			if(galleryWidth > 1800){
 				ret.itemsPerColumn = 4;
 			}
@@ -42,12 +68,15 @@ $.fn.gallerify = function(params){
 			}else {
 				ret.itemsPerColumn = 1;
 			}
+			//MAX HEIGHT
+			if(galleryWidth > 768){
+				ret.maxHeight = screen.height * 0.4;
+			}
+
 		}
 
 		//Max width
-		if(galleryWidth > 768){
-			ret.maxHeight = screen.height * 0.3;
-		}else {
+		if(galleryWidth < 768) {
 			ret.maxHeight = screen.height;
 		}
 		return ret;
