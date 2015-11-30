@@ -9,9 +9,9 @@ $.fn.gallerify = function(params){
 	params.width = params.width ? params.width : undefined;
 	params.imagesPerRow = params.imagesPerRow ? params.imagesPerRow : undefined;
 	params.margin = params.margin ? params.margin : undefined;
+	
 	//default, bootstrap, flickr
 	params.mode = params.mode ? params.mode : 'default';
-
 	function getScreenSettings(galleryWidth){
 		var ret = {
 			itemsPerColumn : -1,
@@ -72,7 +72,6 @@ $.fn.gallerify = function(params){
 			if(galleryWidth > 768){
 				ret.maxHeight = screen.height * 0.4;
 			}
-
 		}
 
 		//Max width
@@ -82,40 +81,38 @@ $.fn.gallerify = function(params){
 		return ret;
 	}
 
-	function resizeWidth(jChildren, rowWidth, margin){
+	function resizeToWidth(jChildren, rowWidth, margin){
 		var currentWidth = _.reduce(jChildren, function(result, element){return result + element.width()}, 0);
 		// -1 pixel to make the resize look smooth
-		//Test adding 2px to the margin
-		var factor =( rowWidth - 1 - (jChildren.length * (margin + 4) * 2)) / currentWidth;
-	  	//var factor =( rowWidth - 1 - (jChildren.length * (margin) * 2)) / currentWidth;
+		//adding 2px to the margin
+		var factor = (rowWidth - 1 - (jChildren.length * (margin + 4) * 2)) / currentWidth;
 	  	for (var i = 0; i < jChildren.length; i++) {
-
 	  		jChildren[i].css('width',  jChildren[i].width() * factor);
 	  	};
 	  	return jChildren[0].height();
 	  }
 
-	  function resizeHeight(jChildren, childHeight){
+	  function resizeToSameHeight(jChildren, childHeight){
 	  	for (var i = 0; i < jChildren.length; i++) {
 	  		var factor =  childHeight / jChildren[i].height();
   			var x = jChildren[i].width();
 	  		jChildren[i].width(jChildren[i].width() * factor);
 	  	};
+	  	return jChildren[0].height();
 	  }
 
 	  function renderRow(jChildren, galleryWidth, margin, maxHeight){
-		//var rowHeight = _.min(jChildren, function(t){return t.height() }).height();
 		var rowHeight = maxHeight;
-		resizeHeight(jChildren, rowHeight);
-		var rowHeight = resizeWidth(jChildren, galleryWidth, margin);
+		rowHeight = resizeToSameHeight(jChildren, rowHeight);
+		var rowHeight = resizeToWidth(jChildren, galleryWidth, margin);
 		return rowHeight;
 	}
 
 	function renderLastRow(jChildren,  galleryWidth, margin, rowHeight){
-		rowHeight = resizeHeight(jChildren, rowHeight);
+		rowHeight = resizeToSameHeight(jChildren, rowHeight);
 		var currentWidth = _.reduce(jChildren, function(result, element){return result + element.width()}, 0);
 		if(currentWidth > galleryWidth){
-			rowHeight = resizeWidth(jChildren, galleryWidth, margin);
+			rowHeight = resizeToWidth(jChildren, galleryWidth, margin);
 		}
 		return rowHeight;
 	}
