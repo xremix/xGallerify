@@ -9,7 +9,7 @@ $.fn.gallerify = function(params){
 	params.width = params.width || undefined;
 	params.imagesPerRow = params.imagesPerRow || undefined;
 	params.margin = params.margin || undefined;
-	
+
 	//default, bootstrap, flickr
 	params.mode = params.mode || 'default';
 
@@ -139,7 +139,6 @@ $.fn.gallerify = function(params){
 				if(jChildren.length >= imagesPerRow || i == dChildren.length -1){
 					var lastRow = i == dChildren.length -1;
 					jChildRows.push(jChildren);
-<<<<<<< HEAD
 					if(!lastRow){
 						lastRowHeight = renderRow(jChildRows[jChildRows.length - 1], width, _params.margin, screenSettings.maxHeight);	
 					}else{
@@ -150,14 +149,6 @@ $.fn.gallerify = function(params){
 						}
 					}
 					
-=======
-					// if(!lastRow){
-						lastRowHeight = renderRow(jChildRows[jChildRows.length - 1], width, _params.margin, screenSettings.maxHeight);
-					// }else{
-					// 	 renderLastRow(jChildRows[jChildRows.length - 1], lastRowHeight);
-					// }
-
->>>>>>> pr/1
 					if(lastRowHeight < screenSettings.maxHeight){
 						jChildren = [];
 					}
