@@ -21,7 +21,7 @@ $.fn.gallerify = function(params){
 		//Items per column
 		if(params.mode == "default"){
 			//default MODE
-			if(galleryWidth > 1600){
+			if(galleryWidth > 1800){
 				ret.itemsPerColumn = 4;
 			}
 			else if(galleryWidth > 1200){
