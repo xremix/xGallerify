@@ -111,9 +111,12 @@ $.fn.gallerify = function(params){
 		return rowHeight;
 	}
 
-	function renderLastRow(jChildren,  rowHeight){
-		//Width can be wider than the screen!
-		resizeHeight(jChildren, rowHeight);
+	function renderLastRow(jChildren,  galleryWidth, margin, rowHeight){
+		rowHeight = resizeHeight(jChildren, rowHeight);
+		var currentWidth = _.reduce(jChildren, function(result, element){return result + element.width()}, 0);
+		if(currentWidth > galleryWidth){
+			rowHeight = resizeWidth(jChildren, galleryWidth, margin);
+		}
 		return rowHeight;
 	}
 
@@ -125,6 +128,7 @@ $.fn.gallerify = function(params){
 		var screenSettings = getScreenSettings(width);
 		imagesPerRow = _params.imagesPerRow ? _params.imagesPerRow : screenSettings.itemsPerColumn;
 		_params.margin =_params.margin ? _params.margin : 3;
+		_params.lastRow = _params.lastRow ? _params.lastRow : "fullwidth";
 		var lastRowHeight;
 		//This code looks a little too complex - seperate in multiple functions
 		for (var i = 0; i < dChildren.length; i++) {
@@ -137,11 +141,15 @@ $.fn.gallerify = function(params){
 				if(jChildren.length >= imagesPerRow || i == dChildren.length -1){
 					var lastRow = i == dChildren.length -1;
 					jChildRows.push(jChildren);
-					// if(!lastRow){
+					if(!lastRow){
 						lastRowHeight = renderRow(jChildRows[jChildRows.length - 1], width, _params.margin, screenSettings.maxHeight);	
-					// }else{
-					// 	 renderLastRow(jChildRows[jChildRows.length - 1], lastRowHeight);	
-					// }
+					}else{
+						if(_params.lastRow == "fullwidth"){
+							lastRowHeight = renderRow(jChildRows[jChildRows.length - 1], width, _params.margin, screenSettings.maxHeight);
+						}else if(_params.lastRow == "adjust"){
+							renderLastRow(jChildRows[jChildRows.length - 1], width, _params.margin, lastRowHeight);	
+						}
+					}
 					
 					if(lastRowHeight < screenSettings.maxHeight){
 						jChildren = [];
