@@ -8,9 +8,11 @@ A lightweight, responsive, smart gallery based on jQuery.
 
 ```JS
 		$('.photos').gallerify({
-				 margin:5,
-				 mode:'default',
-				 // mode:'bootstrap',
-				 // mode:'flickr',
-			});	
+			 margin:5,
+			 mode:'default',
+			 // mode:'bootstrap',
+			 // mode:'flickr',
+			 // lastRow:'fullwidth',
+			 lastRow:'adjust',
+		});	
 ```
