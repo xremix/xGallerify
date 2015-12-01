@@ -132,12 +132,11 @@ $.fn.gallerify = function(params){
 		for (var i = 0; i < dChildren.length; i++) {
 			var _jChild = $(dChildren[i]);
 			if(_jChild.width() > 0){
-
 				jChildren.push(_jChild);
 				_jChild.css("margin", _params.margin);
 
 				if(jChildren.length >= imagesPerRow || i == dChildren.length -1){
-					var lastRow = i == dChildren.length -1;
+					var lastRow = i == dChildren.length -1 && jChildren.length < screenSettings.itemsPerColumn;
 					jChildRows.push(jChildren);
 					if(!lastRow){
 						lastRowHeight = renderRow(jChildRows[jChildRows.length - 1], width, _params.margin, screenSettings.maxHeight);	
@@ -156,7 +155,7 @@ $.fn.gallerify = function(params){
 			}else{
 				_jChild.load(function() {
 					renderGallery(_this, params);
-					$( this ).addClass( "imgloaded" );
+					$(this).addClass( "imgloaded" );
 				});
 
 			}
