@@ -83,7 +83,8 @@ $.fn.gallerify = function(params){
 	}
 
 	function resizeToWidth(jChildren, rowWidth, margin){
-		var currentWidth = _.reduce(jChildren, function(result, element){return result + element.width()}, 0);
+		var currentWidth = 0;
+		$(jChildren).each( function(){ currentWidth += $(this).width(); });
 		// -1 pixel to make the resize look smooth
 		//adding 2px to the margin
 		var factor = (rowWidth - 1 - (jChildren.length * (margin + 4) * 2)) / currentWidth;
@@ -111,7 +112,8 @@ $.fn.gallerify = function(params){
 
 	function renderLastRow(jChildren,  galleryWidth, margin, rowHeight){
 		rowHeight = resizeToSameHeight(jChildren, rowHeight);
-		var currentWidth = _.reduce(jChildren, function(result, element){return result + element.width()}, 0);
+		var currentWidth = 0;
+		$(jChildren).each( function(){ currentWidth += $(this).width(); });
 		if(currentWidth > galleryWidth){
 			rowHeight = resizeToWidth(jChildren, galleryWidth, margin);
 		}
