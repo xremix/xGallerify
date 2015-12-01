@@ -3,7 +3,9 @@
   "version": "0.0.2",
   "description": "A lightweight, responsive, smart gallery based on jQuery.",
   "main": "gulpfile.js",
-  "files": ["dist/xgallerify.min.js"],
+  "files": [
+    "dist/xgallerify.min.js"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,7 +19,7 @@
     "url": "https://github.com/xremix/xGallerify/issues"
   },
   "homepage": "https://github.com/xremix/xGallerify#readme",
-  "dependencies": {
+  "devDependencies": {
     "gulp": "^3.9.0",
     "gulp-plumber": "^1.0.1",
     "gulp-rename": "^1.2.2",
