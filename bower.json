@@ -1,12 +1,12 @@
 {
   "name": "xGallerify",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "homepage": "https://github.com/xremix/xGallerify",
   "authors": [
     "Toni Hoffmann <toni-hoffmann@xremix.de>"
   ],
   "description": "A lightweight, responsive, smart gallery based on jQuery",
-  "main": "gulpfile.js",
+  "main": "dist/xgallerify.js",
   "moduleType": [
     "node"
   ],
