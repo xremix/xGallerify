@@ -1,15 +1,16 @@
-window.readyForGallerify = false;
-$(window).load(function() {
-	window.readyForGallerify = true;
-});
-$.fn.gallerify = function(params){
+(function($){
+	window.readyForGallerify = false;
+	$(window).load(function() {
+		window.readyForGallerify = true;
+	});
+	$.fn.gallerify = function(params){
 	var _this = this;// -1 pixel to make the resize look smooth
-	//Sample Parameter	
+	
+	//Sample Parameters
 	params.interruptSetup = params.interruptSetup || false;
 	params.width = params.width || undefined;
 	params.imagesPerRow = params.imagesPerRow || undefined;
 	params.margin = params.margin || undefined;
-
 	//default, bootstrap, flickr
 	params.mode = params.mode || 'default';
 
@@ -73,6 +74,23 @@ $.fn.gallerify = function(params){
 			if(galleryWidth > 768){
 				ret.maxHeight = screen.height * 0.4;
 			}
+		}else if(params.mode == "small"){
+			//flickr MODE
+			if(galleryWidth > 1800){
+				ret.itemsPerColumn = 14;
+			}
+			else if(galleryWidth > 1300){
+				ret.itemsPerColumn = 10;
+			}
+			else if(galleryWidth > 610){
+				ret.itemsPerColumn = 6;
+			}else {
+				ret.itemsPerColumn = 4;
+			}
+			//MAX HEIGHT
+			if(galleryWidth > 768){
+				ret.maxHeight = screen.height * 0.4;
+			}
 		}
 
 		//Max width
@@ -88,25 +106,25 @@ $.fn.gallerify = function(params){
 		// -1 pixel to make the resize look smooth
 		//adding 2px to the margin
 		var factor = (rowWidth - 1 - (jChildren.length * (margin + 4) * 2)) / currentWidth;
-	  	for (var i = 0; i < jChildren.length; i++) {
-	  		jChildren[i].css('width',  jChildren[i].width() * factor);
-	  	};
-	  	return jChildren[0].height();
-	  }
+		for (var i = 0; i < jChildren.length; i++) {
+			jChildren[i].css('width',  jChildren[i].width() * factor);
+		};
+		return jChildren[0].height();
+	}
 
-	  function resizeToSameHeight(jChildren, childHeight){
-	  	for (var i = 0; i < jChildren.length; i++) {
-	  		var factor =  childHeight / jChildren[i].height();
-  			var x = jChildren[i].width();
-	  		jChildren[i].width(jChildren[i].width() * factor);
-	  	};
-	  	return jChildren[0].height();
-	  }
+	function resizeToSameHeight(jChildren, childHeight){
+		for (var i = 0; i < jChildren.length; i++) {
+			var factor =  childHeight / jChildren[i].height();
+			var x = jChildren[i].width();
+			jChildren[i].width(jChildren[i].width() * factor);
+		};
+		return jChildren[0].height();
+	}
 
-	  function renderRow(jChildren, galleryWidth, margin, maxHeight){
+	function renderRow(jChildren, galleryWidth, margin, maxHeight){
 		var rowHeight = maxHeight;
 		rowHeight = resizeToSameHeight(jChildren, rowHeight);
-		var rowHeight = resizeToWidth(jChildren, galleryWidth, margin);
+		rowHeight = resizeToWidth(jChildren, galleryWidth, margin);
 		return rowHeight;
 	}
 
@@ -124,12 +142,17 @@ $.fn.gallerify = function(params){
 		var jChildren = []; //jquery childs
 		var jChildRows = []; //jquery childs
 		var dChildren = jGallery.children(); //dom childs
-		var width = _params.width ? _params.width : jGallery.width();
+		var width = _params.width || jGallery.width();
 		var screenSettings = getScreenSettings(width);
-		imagesPerRow = _params.imagesPerRow ? _params.imagesPerRow : screenSettings.itemsPerColumn;
-		_params.margin =_params.margin ? _params.margin : 3;
-		_params.lastRow = _params.lastRow ? _params.lastRow : "fullwidth";
+		imagesPerRow = _params.imagesPerRow || screenSettings.itemsPerColumn;
+		_params.margin = _params.margin || 3;
+		_params.lastRow = _params.lastRow || "fullwidth";
 		var lastRowHeight;
+		//Needs some rework
+		if(_params.width){
+			jGallery.width(width);
+		}
+
 		//This code looks a little too complex - seperate in multiple functions
 		for (var i = 0; i < dChildren.length; i++) {
 			var _jChild = $(dChildren[i]);
@@ -191,3 +214,4 @@ $.fn.gallerify = function(params){
 	init();
 	return _this;
 };
+}( jQuery ));

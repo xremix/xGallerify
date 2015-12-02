@@ -4,7 +4,7 @@ var rename = require('gulp-rename');
 var plumber = require('gulp-plumber');
 
 var paths = {
-	src: "src/xgallerify.js",
+	src: "src/jquery.xgallerify.js",
 	dist: "dist/",
 }
 
