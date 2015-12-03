@@ -10,7 +10,7 @@
 	params.interruptSetup = params.interruptSetup || false;
 	params.width = params.width || undefined;
 	params.imagesPerRow = params.imagesPerRow || undefined;
-	params.margin = params.margin || undefined;
+	params.margin = params.margin != undefined ? params.margin : undefined;
 	//default, bootstrap, flickr
 	params.mode = params.mode || 'default';
 
@@ -105,7 +105,7 @@
 		$(jChildren).each( function(){ currentWidth += $(this).width(); });
 		// -1 pixel to make the resize look smooth
 		//adding 2px to the margin
-		var factor = (rowWidth - 1 - (jChildren.length * (margin + 4) * 2)) / currentWidth;
+		var factor = (rowWidth  - (jChildren.length * (margin + 4) * 2)) / currentWidth;
 		for (var i = 0; i < jChildren.length; i++) {
 			jChildren[i].css('width',  jChildren[i].width() * factor);
 		};
@@ -145,13 +145,15 @@
 		var width = _params.width || jGallery.width();
 		var screenSettings = getScreenSettings(width);
 		imagesPerRow = _params.imagesPerRow || screenSettings.itemsPerColumn;
-		_params.margin = _params.margin || 3;
+		console.log(_params);
+		_params.margin = _params.margin != undefined ? _params.margin : 10;
 		_params.lastRow = _params.lastRow || "fullwidth";
 		var lastRowHeight;
 		//Needs some rework
 		if(_params.width){
 			jGallery.width(width);
 		}
+		jGallery.css("font-size", 0);
 
 		//This code looks a little too complex - seperate in multiple functions
 		for (var i = 0; i < dChildren.length; i++) {
