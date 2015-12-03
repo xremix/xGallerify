@@ -214,6 +214,9 @@
 		});
 	}
 	init();
+	_this.reinit = function(){
+		renderGallery(_this, params);
+	};
 	return _this;
 };
 }( jQuery ));
