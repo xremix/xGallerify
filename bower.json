@@ -6,7 +6,7 @@
     "Toni Hoffmann <toni-hoffmann@xremix.de>"
   ],
   "description": "A lightweight, responsive, smart gallery based on jQuery",
-  "main": "dist/xgallerify.js",
+  "main": "dist/jquery.xgallerify.js",
   "moduleType": [
     "node"
   ],
