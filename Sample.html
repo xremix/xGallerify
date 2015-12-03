@@ -17,6 +17,9 @@
 		.photo {
 			position: relative;
 		}
+		.photo *{
+			display:block;
+		}
 		.title{
 			position: absolute;
 			bottom:20px;
@@ -36,8 +39,7 @@
 	<div class="photos">
 		<div class="photo">
 			<img src="http://placehold.it/600x400">
-			<div class="title">1</div>
-		</div>
+			<div class="title">1</div></div>
 		<div class="photo">
 			<img src="http://placehold.it/600x400">
 			<div class="title">2</div>
@@ -114,7 +116,7 @@
 	<!--<script src="dist/jquery.xgallerify.min.js"></script>-->
 	<script type="text/javascript">
 		$('.photos').gallerify({
-			margin:5,
+			margin:10,
 			mode:'default',
 			lastRow:'adjust'
 		});	
