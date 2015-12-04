@@ -1,101 +1,87 @@
 (function($){
-	window.readyForGallerify = false;
+	var windowHasLoaded = false;
 	$(window).load(function() {
-		window.readyForGallerify = true;
+		windowHasLoaded = true;
 	});
 	$.fn.gallerify = function(params){
 	var _this = this;// -1 pixel to make the resize look smooth
 	
+	
 	//Sample Parameters
-	params.interruptSetup = params.interruptSetup || false;
-	params.width = params.width || undefined;
-	params.imagesPerRow = params.imagesPerRow || undefined;
-	params.margin = params.margin != undefined ? params.margin : undefined;
-	//default, bootstrap, flickr
-	params.mode = params.mode || 'default';
+	// params.margin = params.margin || undefined; //int, margin around each element
+	params.mode = params.mode || 'default'; //default, bootstrap, flickr, small
+	params.interruptSetup = params.interruptSetup || false; //if you are going to set the css variables for the elements in CSS
+	params.width = params.width || undefined; //width of the whole gallery
+	params.imagesPerRow = params.imagesPerRow || undefined; //How many images should show up at a MINIMUM	
+	
 
-	function getScreenSettings(galleryWidth){
+function getScreenSettings(galleryWidth){
 		var ret = {
-			itemsPerColumn : -1,
-			maxHeight : 500
+			itemsPerRow : undefined,
+			maxHeight   : undefined
 		};
 
-		//Items per column
-		if(params.mode == "default"){
-			//default MODE
-			if(galleryWidth > 1800){
-				ret.itemsPerColumn = 4;
-			}
-			else if(galleryWidth > 1200){
-				ret.itemsPerColumn = 3;
-			}
-			else if(galleryWidth > 768){
-				ret.itemsPerColumn = 2;
-			}else {
-				ret.itemsPerColumn = 1;
-			}
-			//MAX HEIGHT
-			if(galleryWidth > 768){
-				ret.maxHeight = screen.height * 0.6;
-			}
+		//Default MAX HEIGHT for mobile
+		if(galleryWidth <= 768) {
+			ret.maxHeight = screen.height;
+		}
 
-		}else if(params.mode == "bootstrap"){
-			//bootstrap MODE
+		if(params.mode == "bootstrap"){ // ------- bootstrap mode -------
 			if(galleryWidth > 1200){
-				ret.itemsPerColumn = 4;
-			}
-			else if(galleryWidth > 992){
-				ret.itemsPerColumn = 3;
-			}
-			else if(galleryWidth > 768){
-				ret.itemsPerColumn = 2;
+				ret.itemsPerRow = 4;
+			}else if(galleryWidth > 992){
+				ret.itemsPerRow = 3;
+			}else if(galleryWidth > 768){
+				ret.itemsPerRow = 2;
 			}else {
-				ret.itemsPerColumn = 0.4;
+				ret.itemsPerRow = 0.4;
 			}
 			//MAX HEIGHT
 			if(galleryWidth > 768){
 				ret.maxHeight = screen.height * 0.5;
 			}
-
-		}else if(params.mode == "flickr"){
-			//flickr MODE
+		}else if(params.mode == "flickr"){ // ------- flickr mode -------
 			if(galleryWidth > 1800){
-				ret.itemsPerColumn = 4;
-			}
-			else if(galleryWidth > 1300){
-				ret.itemsPerColumn = 3;
-			}
-			else if(galleryWidth > 610){
-				ret.itemsPerColumn = 2;
+				ret.itemsPerRow = 4;
+			}else if(galleryWidth > 1300){
+				ret.itemsPerRow = 3;
+			}else if(galleryWidth > 610){
+				ret.itemsPerRow = 2;
 			}else {
-				ret.itemsPerColumn = 1;
+				ret.itemsPerRow = 1;
 			}
 			//MAX HEIGHT
 			if(galleryWidth > 768){
 				ret.maxHeight = screen.height * 0.4;
 			}
-		}else if(params.mode == "small"){
-			//flickr MODE
+		}else if(params.mode == "small"){ // ------- small mode -------
 			if(galleryWidth > 1800){
-				ret.itemsPerColumn = 14;
-			}
-			else if(galleryWidth > 1300){
-				ret.itemsPerColumn = 10;
-			}
-			else if(galleryWidth > 610){
-				ret.itemsPerColumn = 6;
+				ret.itemsPerRow = 14;
+			}else if(galleryWidth > 1300){
+				ret.itemsPerRow = 10;
+			}else if(galleryWidth > 610){
+				ret.itemsPerRow = 6;
 			}else {
-				ret.itemsPerColumn = 4;
+				ret.itemsPerRow = 4;
 			}
 			//MAX HEIGHT
 			if(galleryWidth > 768){
 				ret.maxHeight = screen.height * 0.4;
 			}
-		}
-
-		//Max width
-		if(galleryWidth < 768) {
-			ret.maxHeight = screen.height;
+		}else{                           // ------- default MODE -------
+			if(galleryWidth > 1800){
+				ret.itemsPerRow = 4;
+			}else if(galleryWidth > 1200){
+				ret.itemsPerRow = 3;
+			}else if(galleryWidth > 768){
+				ret.itemsPerRow = 2;
+			}else {
+				ret.itemsPerRow = 1;
+			}
+			//MAX HEIGHT
+			if(galleryWidth > 768){
+				ret.maxHeight = screen.height * 0.6;
+			}
 		}
 		return ret;
 	}
@@ -103,14 +89,14 @@
 	function resizeToWidth(jChildren, rowWidth, margin){
 		var currentWidth = 0;
 		$(jChildren).each( function(){ currentWidth += $(this).width(); });
-		// -1 pixel to make the resize look smooth
-		//adding 2px to the margin
-		var factor = (rowWidth  - (jChildren.length * (margin + 4) * 2)) / currentWidth;
+		//adding 4px to the margin to let the gallery float smooth
+		var factor = (rowWidth - (jChildren.length * (margin + 4) * 2)) / currentWidth;
 		for (var i = 0; i < jChildren.length; i++) {
 			jChildren[i].css('width',  jChildren[i].width() * factor);
 		};
 		return jChildren[0].height();
 	}
+
 
 	function resizeToSameHeight(jChildren, childHeight){
 		for (var i = 0; i < jChildren.length; i++) {
@@ -118,14 +104,12 @@
 			var x = jChildren[i].width();
 			jChildren[i].width(jChildren[i].width() * factor);
 		};
-		return jChildren[0].height();
+		return jChildren[0].height(); //Returning height of the current row
 	}
 
 	function renderRow(jChildren, galleryWidth, margin, maxHeight){
-		var rowHeight = maxHeight;
-		rowHeight = resizeToSameHeight(jChildren, rowHeight);
-		rowHeight = resizeToWidth(jChildren, galleryWidth, margin);
-		return rowHeight;
+		resizeToSameHeight(jChildren, maxHeight);
+		return resizeToWidth(jChildren, galleryWidth, margin); //Returning height of the current row
 	}
 
 	function renderLastRow(jChildren,  galleryWidth, margin, rowHeight){
@@ -139,23 +123,22 @@
 	}
 
 	function renderGallery(jGallery, _params){
+		console.log("rendering")
 		var jChildren = []; //jquery childs
 		var jChildRows = []; //jquery childs
 		var dChildren = jGallery.children(); //dom childs
 		var width = _params.width || jGallery.width();
 		var screenSettings = getScreenSettings(width);
-		imagesPerRow = _params.imagesPerRow || screenSettings.itemsPerColumn;
-		console.log(_params);
-		_params.margin = _params.margin != undefined ? _params.margin : 10;
+		imagesPerRow = _params.imagesPerRow || screenSettings.itemsPerRow;
+		_params.margin = _params.margin != undefined && _params.margin != null ? _params.margin : 5;
 		_params.lastRow = _params.lastRow || "fullwidth";
 		var lastRowHeight;
-		//Needs some rework
+		//TODO Might need some rework
 		if(_params.width){
 			jGallery.width(width);
 		}
-		jGallery.css("font-size", 0);
 
-		//This code looks a little too complex - seperate in multiple functions
+		//TODO This code looks a little too complex - seperate in multiple functions?!
 		for (var i = 0; i < dChildren.length; i++) {
 			var _jChild = $(dChildren[i]);
 			if(_jChild.width() > 0){
@@ -163,45 +146,45 @@
 				_jChild.css("margin", _params.margin);
 
 				if(jChildren.length >= imagesPerRow || i == dChildren.length -1){
-					var lastRow = i == dChildren.length -1 && jChildren.length < screenSettings.itemsPerColumn;
 					jChildRows.push(jChildren);
-					if(!lastRow){
+					if(
+						!(
+							i == dChildren.length -1 //Check if last row
+							&& jChildren.length < screenSettings.itemsPerRow // Check if the miminum items per row are reched
+						) //Checking if current row is a complete row
+						|| _params.lastRow == "fullwidth" //check if a non-complete row should be displayed with the full width
+					){
 						lastRowHeight = renderRow(jChildRows[jChildRows.length - 1], width, _params.margin, screenSettings.maxHeight);	
 					}else{
-						if(_params.lastRow == "fullwidth"){
-							lastRowHeight = renderRow(jChildRows[jChildRows.length - 1], width, _params.margin, screenSettings.maxHeight);
-						}else if(_params.lastRow == "adjust"){
-							renderLastRow(jChildRows[jChildRows.length - 1], width, _params.margin, lastRowHeight);	
-						}
+						renderLastRow(jChildRows[jChildRows.length - 1], width, _params.margin, lastRowHeight);	
 					}
-					
-					if(lastRowHeight < screenSettings.maxHeight){
+
+					if(lastRowHeight < screenSettings.maxHeight){ //If the row height is smaller than the maxHeight property beginn a new row. Otherwise add another image to decrese the height
 						jChildren = [];
 					}
 				}
 			}else{
 				_jChild.load(function() {
 					renderGallery(_this, params);
-					$(this).addClass( "imgloaded" );
 				});
-
 			}
 		};
 	}
 
+
 	function setupChilds(jGallery){
-		var dChildren = jGallery.children();
-		for (var i = 0; i < dChildren.length; i++) {
-			var _jChild = $(dChildren[i]);
-			_jChild.css("display", "inline-block");
-			_jChild.find("img").css("width", "100%");
-		}
+		jChildren = $(jGallery.children());
+		jChildren.css("display", "inline-block");
+		jChildren.find("img").css("width", "100%");
+
+		jChildren.find("img").addClass("xInited");
+		
 	}
 
 	function init(){
 		//Allow
 		!params.interruptSetup && setupChilds(_this);
-		if(window.readyForGallerify){
+		if(windowHasLoaded){
 			renderGallery(_this, params);
 		}else{
 			$(window).on("load", function() {
@@ -209,14 +192,22 @@
 			});
 		}
 
-		$( window ).resize(function() {
+		$(window).resize(function() {
 			renderGallery(_this, params);
 		});
 	}
-	init();
-	_this.reinit = function(){
+	
+	_this.render = function(){
 		renderGallery(_this, params);
 	};
+
+	_this.renderAsyncImages = function(){
+		_this.find("img").load(function(){
+			renderGallery(_this, params);
+		});
+	};
+
+	init();
 	return _this;
 };
 }( jQuery ));

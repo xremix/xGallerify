@@ -26,5 +26,7 @@ A lightweight, responsive, smart gallery based on jQuery.
 
 ## Functions
 
-**reinit()**
+**render()**
 To reinitialize the gallery (when new images are added)
+**renderAsyncImages()** `WIP`
+Automatically renders every time a image has been loaded. This needs to get called everytime you add a new image
