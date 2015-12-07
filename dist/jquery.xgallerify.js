@@ -5,6 +5,11 @@
 	});
 
 	///////// PUBLIC FUNCTIONS /////////
+	/**
+	* gallerify a gallery and render rows
+	*
+	* @param params can contain margin, width, mode, interruptSetup and imagesPerRow
+	*/
 	$.fn.gallerify = function(params){
 		var _this = this;
 
@@ -23,7 +28,6 @@
 		};
 
 		this.gallerify.renderAsyncImages = function(){
-			console.log(this);
 			_this.find("img").load(function(){
 				renderGallery(_this, params);
 			});
@@ -45,9 +49,21 @@
 			});
 		}
 
-		$(window).resize(function(){
-			renderGallery(jGallery, params);
-		});
+		// if(params.continuousResizeRender){
+			$(window).resize(function(){
+				renderGallery(jGallery, params);
+			});
+		// }else{
+		// 	$(window).bind('resizeEnd', function() {
+		// 	    renderGallery(jGallery, params);
+		// 	});
+		// 	 $(window).resize(function() {
+		//         if(this.resizeTO) clearTimeout(this.resizeTO);
+		//         this.resizeTO = setTimeout(function() {
+		//             $(this).trigger('resizeEnd');
+		//         }, 50);
+		//     });
+		// }
 	}
 
 	function setupChilds(jGallery, margin){
@@ -79,31 +95,25 @@
 		//TODO This code looks a little too complex - seperate in multiple functions?!
 		for (var i = 0; i < dChildren.length; i++){
 			var _jChild = $(dChildren[i]);
-			if(_jChild.width() > 0){
-				jChildren.push(_jChild);
+			jChildren.push(_jChild);
 
-				if(jChildren.length >= imagesPerRow || i == dChildren.length -1){
-					jChildRows.push(jChildren);
-					if(
-						!(
-							i == dChildren.length -1 //Check if last row
-							&& jChildren.length < screenSettings.itemsPerRow // Check if the miminum items per row are reched
-						) //Checking if current row is a complete row
-						|| _params.lastRow == "fullwidth" //check if a non-complete row should be displayed with the full width
-						){
-						lastRowHeight = renderRow(jChildRows[jChildRows.length - 1], width, _params.margin, screenSettings.maxHeight);
-				}else{
-					renderLastRow(jChildRows[jChildRows.length - 1], width, _params.margin, lastRowHeight);	
-				}
-
-					if(lastRowHeight < screenSettings.maxHeight){ //If the row height is smaller than the maxHeight property beginn a new row. Otherwise add another image to decrese the height
-						jChildren = [];
-					}
-				}
+			if(jChildren.length >= imagesPerRow || i == dChildren.length -1){
+				jChildRows.push(jChildren);
+				if(
+					!(
+						i == dChildren.length -1 //Check if last row
+						&& jChildren.length < screenSettings.itemsPerRow // Check if the miminum items per row are reched
+					) //Checking if current row is a complete row
+					|| _params.lastRow == "fullwidth" //check if a non-complete row should be displayed with the full width
+					){
+					lastRowHeight = renderRow(jChildRows[jChildRows.length - 1], width, _params.margin, screenSettings.maxHeight);
 			}else{
-				_jChild.load(function(){
-					renderGallery(_this, params);
-				});
+				renderLastRow(jChildRows[jChildRows.length - 1], width, _params.margin, lastRowHeight);	
+			}
+
+				if(lastRowHeight < screenSettings.maxHeight){ //If the row height is smaller than the maxHeight property beginn a new row. Otherwise add another image to decrese the height
+					jChildren = [];
+				}
 			}
 		};
 	}
