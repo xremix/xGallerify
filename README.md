@@ -66,3 +66,9 @@ Automatically renders every time a image has been loaded. This needs to get call
 		$('.photos').gallerify.renderAsyncImages();	
 	});
 ```
+
+## Community
+
+Angular Fork [JohnnyTheTank/angular-xGallerify](https://github.com/JohnnyTheTank/angular-xGallerify)
+
+Thanks everyone for contributing. Suggestions are welcome.
