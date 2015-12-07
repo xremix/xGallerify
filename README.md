@@ -13,6 +13,23 @@ A lightweight, responsive, smart gallery based on jQuery.
 		 lastRow:'adjust',
 	});	
 ```
+### CDN
+
+##### Latest Version
+
+```HTML
+<script src="https://cdn.rawgit.com/xremix/xGallerify/master/dist/jquery.xgallerify.min.js"></script>
+```
+
+```HTML
+<script src="https://cdn.rawgit.com/xremix/xGallerify/master/dist/jquery.xgallerify.js"></script>
+```
+
+##### Specific Version
+
+```HTML
+<script src="https://cdn.rawgit.com/xremix/xGallerify/v0.0.8/dist/jquery.xgallerify.min.js"></script>
+```
 
 ## Parameters
 
