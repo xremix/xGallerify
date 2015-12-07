@@ -13,7 +13,7 @@
 	params.interruptSetup = params.interruptSetup || false; //if you are going to set the css variables for the elements in CSS
 	params.width = params.width || undefined; //width of the whole gallery
 	params.imagesPerRow = params.imagesPerRow || undefined; //How many images should show up at a MINIMUM	
-	
+	params.margin = params.margin != undefined && params.margin != null ? params.margin : 5;
 
 function getScreenSettings(galleryWidth){
 		var ret = {
@@ -130,7 +130,7 @@ function getScreenSettings(galleryWidth){
 		var width = _params.width || jGallery.width();
 		var screenSettings = getScreenSettings(width);
 		imagesPerRow = _params.imagesPerRow || screenSettings.itemsPerRow;
-		_params.margin = _params.margin != undefined && _params.margin != null ? _params.margin : 5;
+
 		_params.lastRow = _params.lastRow || "fullwidth";
 		var lastRowHeight;
 		//TODO Might need some rework
@@ -143,7 +143,6 @@ function getScreenSettings(galleryWidth){
 			var _jChild = $(dChildren[i]);
 			if(_jChild.width() > 0){
 				jChildren.push(_jChild);
-				_jChild.css("margin", _params.margin);
 
 				if(jChildren.length >= imagesPerRow || i == dChildren.length -1){
 					jChildRows.push(jChildren);
@@ -154,7 +153,7 @@ function getScreenSettings(galleryWidth){
 						) //Checking if current row is a complete row
 						|| _params.lastRow == "fullwidth" //check if a non-complete row should be displayed with the full width
 					){
-						lastRowHeight = renderRow(jChildRows[jChildRows.length - 1], width, _params.margin, screenSettings.maxHeight);	
+						lastRowHeight = renderRow(jChildRows[jChildRows.length - 1], width, _params.margin, screenSettings.maxHeight);
 					}else{
 						renderLastRow(jChildRows[jChildRows.length - 1], width, _params.margin, lastRowHeight);	
 					}
@@ -174,16 +173,19 @@ function getScreenSettings(galleryWidth){
 
 	function setupChilds(jGallery){
 		jChildren = $(jGallery.children());
-		jChildren.css("display", "inline-block");
-		jChildren.find("img").css("width", "100%");
-
-		jChildren.find("img").addClass("xInited");
-		
+		jChildren
+			.css("display", "inline-block")
+			.css("margin", params.margin)
+			
+			.find("img")
+			.css("width", "100%")
+			.addClass("ximage-loaded");
 	}
 
 	function init(){
 		//Allow
 		!params.interruptSetup && setupChilds(_this);
+		_this.addClass("xgallerify");
 		if(windowHasLoaded){
 			renderGallery(_this, params);
 		}else{
@@ -197,11 +199,11 @@ function getScreenSettings(galleryWidth){
 		});
 	}
 	
-	_this.render = function(){
+	_this.gallerify.render = function(){
 		renderGallery(_this, params);
 	};
 
-	_this.renderAsyncImages = function(){
+	_this.gallerify.renderAsyncImages = function(){
 		_this.find("img").load(function(){
 			renderGallery(_this, params);
 		});
