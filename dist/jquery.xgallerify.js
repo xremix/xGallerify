@@ -8,29 +8,43 @@
 	/**
 	* gallerify a gallery and render rows
 	*
-	* @param params can contain margin, width, mode, interruptSetup and imagesPerRow
+	* @param params can contain margin, width, mode, jsSetup and imagesPerRow
 	*/
 	$.fn.gallerify = function(params){
 		var _this = this;
 
 		//Sample Parameters
 		params = params || {};
-		params.margin = params.margin != undefined && params.margin != null ? params.margin : 5;
+		params.margin = params.margin != undefined && params.margin != null ? params.margin : 10;
 		params.width = params.width || undefined; //width of the whole gallery
 		params.mode = params.mode || 'default'; //default, bootstrap, flickr, small
-		params.interruptSetup = params.interruptSetup || false; //if you are going to set the css variables for the elements in CSS
+		params.jsSetup = params.jsSetup != undefined ? params.jsSetup : true; //if you are going to set the css variables for the elements in CSS
 		params.imagesPerRow = params.imagesPerRow || undefined; //How many images should show up at a MINIMUM
+		params.debounceLoad = params.debounceLoad != undefined ? params.debounceLoad : true; //How many images should show up at a MINIMUM
+		params.lastRow = params.lastRow || "adjust";
 
 		init(_this, params);
 
 		this.gallerify.render = function(){
+			setupChilds(_this, params.margin)
 			renderGallery(_this, params);
 		};
 
+		var asyncImagesLoadedFinished = debounce(function() {
+			renderGallery(_this, params);
+		}, 100);
+
 		this.gallerify.renderAsyncImages = function(){
-			_this.find("img").load(function(){
-				renderGallery(_this, params);
-			});
+			setupChilds(_this, params.margin);
+			if(params.debounceLoad){
+				_this.find("img").load(function(){
+					asyncImagesLoadedFinished()
+				});
+			}else{
+				_this.find("img").load(function(){
+					renderGallery(_this, params);
+				});	
+			}
 		};
 
 		return _this;
@@ -39,7 +53,7 @@
 	///////// PRIVATE FUNCTIONS /////////
 	function init(jGallery, params){
 		//Allow
-		!params.interruptSetup && setupChilds(jGallery, params.margin);
+		params.jsSetup && setupChilds(jGallery, params.margin);
 		jGallery.addClass("xgallerify");
 		if(windowHasLoaded){
 			renderGallery(jGallery, params);
@@ -48,7 +62,6 @@
 				renderGallery(jGallery, params);
 			});
 		}
-
 		// if(params.continuousResizeRender){
 			$(window).resize(function(){
 				renderGallery(jGallery, params);
@@ -85,8 +98,8 @@
 		var screenSettings = getScreenSettings(width, _params.mode);
 		imagesPerRow = _params.imagesPerRow || screenSettings.itemsPerRow;
 
-		_params.lastRow = _params.lastRow || "fullwidth";
 		var lastRowHeight;
+		console.log("last row" + _params.lastRow);
 		//TODO Might need some rework
 		if(_params.width){
 			jGallery.width(width);
@@ -95,24 +108,28 @@
 		//TODO This code looks a little too complex - seperate in multiple functions?!
 		for (var i = 0; i < dChildren.length; i++){
 			var _jChild = $(dChildren[i]);
-			jChildren.push(_jChild);
+			if(_jChild.width()){
 
-			if(jChildren.length >= imagesPerRow || i == dChildren.length -1){
-				jChildRows.push(jChildren);
-				if(
-					!(
-						i == dChildren.length -1 //Check if last row
-						&& jChildren.length < screenSettings.itemsPerRow // Check if the miminum items per row are reched
-					) //Checking if current row is a complete row
-					|| _params.lastRow == "fullwidth" //check if a non-complete row should be displayed with the full width
+				
+				jChildren.push(_jChild);
+
+				if(jChildren.length >= imagesPerRow || i == dChildren.length -1){
+					jChildRows.push(jChildren);
+					if(
+						!(
+							i == dChildren.length -1 //Check if last row
+							&& jChildren.length < screenSettings.itemsPerRow // Check if the miminum items per row are reched
+						) //Checking if current row is a complete row
+						|| _params.lastRow == "fullwidth" //check if a non-complete row should be displayed with the full width
 					){
-					lastRowHeight = renderRow(jChildRows[jChildRows.length - 1], width, _params.margin, screenSettings.maxHeight);
-			}else{
-				renderLastRow(jChildRows[jChildRows.length - 1], width, _params.margin, lastRowHeight);	
-			}
+						lastRowHeight = renderRow(jChildRows[jChildRows.length - 1], width, _params.margin, screenSettings.maxHeight);
+					}else{ //adjust
+						renderLastRow(jChildRows[jChildRows.length - 1], width, _params.margin, lastRowHeight);	
+					}
 
-				if(lastRowHeight < screenSettings.maxHeight){ //If the row height is smaller than the maxHeight property beginn a new row. Otherwise add another image to decrese the height
-					jChildren = [];
+					if(lastRowHeight < screenSettings.maxHeight){ //If the row height is smaller than the maxHeight property beginn a new row. Otherwise add another image to decrese the height
+						jChildren = [];
+					}
 				}
 			}
 		};
@@ -218,10 +235,25 @@
 			}
 			//MAX HEIGHT
 			if(galleryWidth > 768){
-				ret.maxHeight = screen.height * 0.6;
+				ret.maxHeight = screen.height * 0.5;
 			}
 		}
 		return ret;
 	}
+
+	function debounce(func, wait, immediate) {
+			var timeout;
+			return function() {
+				var context = this, args = arguments;
+				var later = function() {
+					timeout = null;
+					if (!immediate) func.apply(context, args);
+				};
+				var callNow = immediate && !timeout;
+				clearTimeout(timeout);
+				timeout = setTimeout(later, wait);
+				if (callNow) func.apply(context, args);
+			};
+		};
 
 }( jQuery ));
