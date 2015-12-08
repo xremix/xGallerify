@@ -7,29 +7,24 @@ A lightweight, responsive, smart gallery based on jQuery.
 ## Usage
 
 ```JS
-	$('.photos').gallerify({
-		 margin:10,
-		 mode:'default',
-		 lastRow:'adjust',
-	});	
+$('.photos').gallerify({
+    margin:10,
+    mode:'default',
+    lastRow:'adjust',
+});
 ```
 ### CDN
 
-##### Latest Version
-
 ```HTML
+<!-- Latest Version -->
 <script src="https://cdn.rawgit.com/xremix/xGallerify/master/dist/jquery.xgallerify.min.js"></script>
-```
-
-```HTML
 <script src="https://cdn.rawgit.com/xremix/xGallerify/master/dist/jquery.xgallerify.js"></script>
-```
 
-##### Specific Version
 
-```HTML
+<!-- Specific Version -->
 <script src="https://cdn.rawgit.com/xremix/xGallerify/v0.0.8/dist/jquery.xgallerify.min.js"></script>
 ```
+
 
 ## Parameters
 
@@ -48,29 +43,28 @@ A lightweight, responsive, smart gallery based on jQuery.
 ### Render
 To reinitialize the gallery (when new images are added)
 ```JS
-	$('.photos').gallerify();
-	...
-	$(window).on('load', function() { //Gets called when all images got loaded
-		$('.photos').gallerify.render();	
-	});
+$('.photos').gallerify();
+//...
+$(window).on('load', function() { //Gets called when all images got loaded
+    $('.photos').gallerify.render();
+});
 ```
-
-**render()**
 
 ### Render Async Images
 Automatically renders every time a image has been loaded. This needs to get called everytime you add a new image after **gallerify()**, if you don't have your on *image loaded* event listener.
 
 ```JS
-	$('.photos').gallerify();
-	$('.photos').append('<img src="randomimage.jpg">');
-	$('.photos').append('<img src="randomimage2.jpg">');
-	$('.photos').append('<img src="randomimage3.jpg">');
-		$('.photos').gallerify.renderAsyncImages();	
-	});
+$('.photos').gallerify();
+
+$('.photos').append('<img src="randomimage.jpg">');
+$('.photos').append('<img src="randomimage2.jpg">');
+$('.photos').append('<img src="randomimage3.jpg">');
+
+$('.photos').gallerify.renderAsyncImages();
 ```
 
 ## Community
 
-Angular Fork [JohnnyTheTank/angular-xGallerify](https://github.com/JohnnyTheTank/angular-xGallerify)
+xGallerify AngularJS directive: [JohnnyTheTank/angular-xGallerify](https://github.com/JohnnyTheTank/angular-xGallerify)
 
 Thanks everyone for contributing. Suggestions are welcome.
