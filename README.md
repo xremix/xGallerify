@@ -28,12 +28,14 @@ $('.photos').gallerify({
 
 ## Parameters
 
-| Name | Value | Type | Description |
+| Name | Default | Type | Description |
 |---|---|---|---|
 | `margin` | e.g. `10`  | `int` | Value in Pixels of the margin of each image on each side  |
 | `width` | `800` | `int` | Width of the gallery in `px` - **WIP!** |
 | `mode` | `default`, `bootstrap`, `flickr` or `small`  | `string` | The mode how the gallery should be displayed and how many images fit in a row |
-| `interruptSetup` | `true` or `false` | `bool` | This sets some CSS values to the elements like `dislay:inline-block` and for each image inside of a container `width:100%`. This can be disabled if the user want to have his own floating / style or style this in plain css |
+| `lastRow` | `adjust` or `fullwidth` | `string` | This will set the last row to the full width or find a good adjustment. I personally prefer `adjust` |
+| `jsSetup` | `true` or `false` | `bool` | This sets some CSS values to the elements like `dislay:inline-block` and for each image inside of a container `width:100%`. This can be disabled if the user want to have his own floating / style or style this in plain css |
+| `debounceLoad` | `true` or `false` | `bool` | This functionality waits `100ms` before rendereing a new loaded image to boost the performance |
 
 
 ## Functions
