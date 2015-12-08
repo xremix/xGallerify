@@ -1,6 +1,6 @@
 {
   "name": "xgallerify",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "A lightweight, responsive, smart gallery based on jQuery.",
   "main": "gulpfile.js",
   "scripts": {
