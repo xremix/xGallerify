@@ -99,7 +99,7 @@
 		imagesPerRow = _params.imagesPerRow || screenSettings.itemsPerRow;
 
 		var lastRowHeight;
-		console.log("last row" + _params.lastRow);
+		//console.log("last row" + _params.lastRow);
 		//TODO Might need some rework
 		if(_params.width){
 			jGallery.width(width);
