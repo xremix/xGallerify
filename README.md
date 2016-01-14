@@ -4,7 +4,14 @@
 
 A lightweight, responsive, smart gallery based on jQuery.
 
-[Demo](https://rawgit.com/xremix/xGallerify/master/Sample.html)
+- Completly responsive
+- Easy to use and customizable
+- Only 2.5kb file size
+- AngularJS port available
+
+## Demo
+
+Check out the [Demo](https://rawgit.com/xremix/xGallerify/master/Sample.html) or try it your self with [CodePen](http://codepen.io/anon/pen/ZQJqOe)
 
 ## Usage
 
@@ -15,6 +22,9 @@ $('.photos').gallerify({
     lastRow:'adjust',
 });
 ```
+
+In this sample `.photos` is a div containing some images. You can also put your images inside of div's and style them the way you want. Check out the Demo for a sample.
+
 ### CDN
 
 ```HTML
