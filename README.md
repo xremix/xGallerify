@@ -1,4 +1,6 @@
 # xGallerify
+[![npm version](https://badge.fury.io/js/xgallerify.svg)](https://badge.fury.io/js/xgallerify)
+[![Bower version](https://badge.fury.io/bo/xGallerify.svg)](https://badge.fury.io/bo/xGallerify)
 
 A lightweight, responsive, smart gallery based on jQuery.
 
