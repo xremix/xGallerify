@@ -11,7 +11,7 @@ A lightweight, responsive, smart gallery based on jQuery.
 
 ## Demo
 
-Check out the [Demo](https://rawgit.com/xremix/xGallerify/master/Sample.html) or try it your self with [CodePen](http://codepen.io/anon/pen/ZQJqOe)
+Check out the [Demo](https://rawgit.com/xremix/xGallerify/master/Sample.html) or try it your self with [CodePen](http://codepen.io/anon/pen/Qyqjyg)
 
 ## Usage
 
