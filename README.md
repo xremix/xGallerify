@@ -7,7 +7,7 @@ A lightweight, responsive, smart gallery based on jQuery.
 - Completly responsive
 - Easy to use and customizable
 - Only 2.5kb file size
-- AngularJS port available
+- [AngularJS directive available](https://github.com/JohnnyTheTank/angular-xGallerify)
 
 ## Demo
 
