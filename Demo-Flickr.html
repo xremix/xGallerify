@@ -5,11 +5,14 @@
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 	<style type="text/css">
 		body{
-			background: #333;
-			color:lightgray;
+			background: #f3f5f6;
+			color:#212124;
+			margin:0px 20px;
 		}
 		h1{
 			text-align: center;
+			font-weight: 100;
+			margin:50px 0;
 		}
 	</style>
 </head>
@@ -24,9 +27,10 @@
 		$.get('https://api.flickr.com/services/rest/?method=flickr.interestingness.getList&api_key=6e331505ca097640de63eda415ff7c62&format=json&nojsoncallback=1')
 		.done(function(obj){
 			var gallery = $('.photos').gallerify({
-				margin:10,
-				mode:'default',
-				lastRow:'adjust'
+				margin:2,
+				mode:'flickr',
+				lastRow:'adjust',
+				debounceLoad:true
 			});
 			for (var i = 0; i < obj.photos.photo.length; i++) {
 				var photo = obj.photos.photo[i];
