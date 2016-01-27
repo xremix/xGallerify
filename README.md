@@ -7,7 +7,7 @@ A lightweight, responsive, smart gallery based on jQuery.
 - Completly responsive
 - Easy to use and customizable
 - Only 2.5kb file size
-- AngularJS port available
+- [AngularJS directive available](https://github.com/JohnnyTheTank/angular-xGallerify)
 
 ## Demo
 
@@ -27,16 +27,16 @@ $('.photos').gallerify({
 
 In this sample `.photos` is a div containing some images. You can also put your images inside of div's and style them the way you want. Check out the Demo for a sample.
 
-### CDN
+### CDN (jsDelivr)
 
 ```HTML
 <!-- Latest Version -->
-<script src="https://cdn.rawgit.com/xremix/xGallerify/master/dist/jquery.xgallerify.min.js"></script>
-<script src="https://cdn.rawgit.com/xremix/xGallerify/master/dist/jquery.xgallerify.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.xgallerify/latest/jquery.xgallerify.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.xgallerify/latest/jquery.xgallerify.js"></script>
 
 
 <!-- Specific Version -->
-<script src="https://cdn.rawgit.com/xremix/xGallerify/v0.0.8/dist/jquery.xgallerify.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.xgallerify/0.0.13/jquery.xgallerify.min.js"></script>
 ```
 
 
