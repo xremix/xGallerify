@@ -22,21 +22,27 @@
 	</div>
 
 	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-	<script src="https://cdn.rawgit.com/xremix/xGallerify/master/dist/jquery.xgallerify.min.js"></script>
+	<script src="dist/jquery.xgallerify.min.js"></script>
 	<script type="text/javascript">
 		$.get('https://api.flickr.com/services/rest/?method=flickr.interestingness.getList&api_key=6e331505ca097640de63eda415ff7c62&format=json&nojsoncallback=1')
-		.done(function(obj){
+		.done(function(flickrImages){
+			//Initialize Gallery
 			var gallery = $('.photos').gallerify({
-				margin:2,
-				mode:'flickr',
-				lastRow:'adjust',
-				debounceLoad:true
+				margin: 2,
+				mode: 'flickr',
+				lastRow: 'adjust',
+				debounceLoad: true,
+				debounceTime: 50
 			});
-			for (var i = 0; i < obj.photos.photo.length; i++) {
-				var photo = obj.photos.photo[i];
+
+			// Add images after the Gallery has been initialized
+			for (var i = 0; i < flickrImages.photos.photo.length; i++) {
+				var photo = flickrImages.photos.photo[i];
 				var img = '<img src="https://farm'+photo.farm+'.staticflickr.com/'+photo.server+'/'+photo.id+'_'+photo.secret+'.jpg">';
 				$('.photos').append(img)
 			};
+
+			//Render Async will allow to render the images that have been loaded asynchronus after the Gallery was initialized
 			gallery.gallerify.renderAsyncImages();
 		
 		});

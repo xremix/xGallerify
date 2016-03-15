@@ -13,7 +13,7 @@
 	$.fn.gallerify = function(params){
 		var _this = this;
 
-		//Sample Parameters
+		//Initial Parameters
 		params = params || {};
 		params.margin = params.margin != undefined && params.margin != null ? params.margin : 10;
 		params.width = params.width || undefined; //width of the whole gallery
@@ -21,8 +21,8 @@
 		params.jsSetup = params.jsSetup != undefined ? params.jsSetup : true; //if you are going to set the css variables for the elements in CSS
 		params.imagesPerRow = params.imagesPerRow || undefined; //How many images should show up at a MINIMUM
 		params.debounceLoad = params.debounceLoad != undefined ? params.debounceLoad : true; //How many images should show up at a MINIMUM
+		params.debounceTime = params.debounceTime != undefined ? params.debounceTime : 50; //How many images should show up at a MINIMUM
 		params.lastRow = params.lastRow || "adjust";
-
 		init(_this, params);
 
 		this.gallerify.render = function(){
@@ -32,13 +32,13 @@
 
 		var asyncImagesLoadedFinished = debounce(function() {
 			renderGallery(_this, params);
-		}, 100);
+		}, params.debounceTime);
 
 		this.gallerify.renderAsyncImages = function(){
 			setupChilds(_this, params.margin);
 			if(params.debounceLoad){
 				_this.find("img").load(function(){
-					asyncImagesLoadedFinished()
+					asyncImagesLoadedFinished();
 				});
 			}else{
 				_this.find("img").load(function(){

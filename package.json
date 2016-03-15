@@ -1,6 +1,6 @@
 {
 	"name": "xgallerify",
-	"version": "0.0.13",
+	"version": "0.0.14",
 	"description": "A lightweight, responsive, smart gallery based on jQuery.",
 	"main": "gulpfile.js",
 	"scripts": {
@@ -18,10 +18,10 @@
 	},
 	"homepage": "https://github.com/xremix/xGallerify#readme",
 	"devDependencies": {
-		"gulp": "^3.9.0",
-		"gulp-plumber": "^1.0.1",
+		"gulp": "^3.9.1",
+		"gulp-plumber": "^1.1.0",
 		"gulp-rename": "^1.2.2",
-		"gulp-uglify": "^1.5.1"
+		"gulp-uglify": "^1.5.3"
 	},
 	"dependencies": {
 		"jquery": "*"
