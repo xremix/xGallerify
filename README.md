@@ -84,6 +84,38 @@ $('.photos').append('<img src="sample-image3.jpg">');
 $('.photos').gallerify.renderAsyncImages();
 ```
 
+## Modes
+
+The modes property defines **how many** images do show at what **container width**
+
+*NOTE*
+If you want to have another mode you are welcome to contribute or open an [issue](https://github.com/xremix/xGallerify/issues).  
+The maximal image height helps to show multiple images in a row, if the images do have a very high ratio like 3:9.
+
+| Mode| Breakpoint | Images per row |
+| ---------------- | ---------------- | ---------------- |
+| **default mode** | Container width > 1800 | 4 |
+|  | Container width > 1200 | 3 |
+|  | Container width > 768 | 2 |
+|  | Container width < 768 | 1 |
+|  | Maximal image height | Screen Height * 0.5 |
+| **bootstrap mode** | Container width > 1200 | 4 |
+|  | Container width > 992 | 3 |
+|  | Container width > 768 | 2 |
+|  | Container width < 768 | 1 |
+|  | Maximal image height | Screen Height * 0.5 |
+| **flickr mode** | Container width > 1800 | 4 |
+|  | Container width > 1300 | 3 |
+|  | Container width > 610 | 2 |
+|  | Container width < 610 | 1 |
+|  | Maximal image height | Screen Height * 0.4 |
+| **small mode** | Container width > 1800 | 14 |
+|  | Container width > 1300 | 10 |
+|  | Container width > 610 | 6 |
+|  | Container width < 610 | 4 |
+|  | Maximal image height | Screen Height * 0.4 |
+
+
 ## Community
 
 xGallerify AngularJS directive: [JohnnyTheTank/angular-xGallerify](https://github.com/JohnnyTheTank/angular-xGallerify)
