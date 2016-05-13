@@ -10,7 +10,7 @@
 	*
 	* @param params can contain margin, width, mode, jsSetup and imagesPerRow
 	*/
-	$.fn.gallerify = function(params){
+	$.fn.gallerify = $.fn.xgallerify =  $.fn.xGallerify = function(params){
 		var _this = this;
 
 		//Initial Parameters
