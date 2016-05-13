@@ -1,3 +1,4 @@
+"use strict";
 (function($){
 	var windowHasLoaded = false;
 	$(window).load(function(){
@@ -26,7 +27,7 @@
 		init(_this, params);
 
 		this.gallerify.render = function(){
-			setupChilds(_this, params.margin)
+			setupChilds(_this, params.margin);
 			renderGallery(_this, params);
 		};
 
@@ -53,7 +54,9 @@
 	///////// PRIVATE FUNCTIONS /////////
 	function init(jGallery, params){
 		//Allow
-		params.jsSetup && setupChilds(jGallery, params.margin);
+		if(params.jsSetup){
+			setupChilds(jGallery, params.margin);
+		}
 		jGallery.addClass("xgallerify");
 		if(windowHasLoaded){
 			renderGallery(jGallery, params);
@@ -80,7 +83,7 @@
 	}
 
 	function setupChilds(jGallery, margin){
-		jChildren = $(jGallery.children());
+		var jChildren = $(jGallery.children());
 		jChildren
 		.css("display", "inline-block")
 		.css("margin", margin)
@@ -96,7 +99,7 @@
 		var dChildren = jGallery.children(); //dom childs
 		var width = _params.width || jGallery.width();
 		var screenSettings = getScreenSettings(width, _params.mode);
-		imagesPerRow = _params.imagesPerRow || screenSettings.itemsPerRow;
+		var imagesPerRow = _params.imagesPerRow || screenSettings.itemsPerRow;
 
 		var lastRowHeight;
 		//TODO Might need some rework
@@ -131,7 +134,7 @@
 					}
 				}
 			}
-		};
+		}
 	}
 
 	function renderRow(jChildren, galleryWidth, margin, maxHeight){
@@ -154,7 +157,7 @@
 			var factor =  childHeight / jChildren[i].height();
 			var x = jChildren[i].width();
 			jChildren[i].width(jChildren[i].width() * factor);
-		};
+		}
 		return jChildren[0].height(); //Returning height of the current row
 	}
 
@@ -165,8 +168,37 @@
 		var factor = (rowWidth - (jChildren.length * (margin + 4) * 2)) / currentWidth;
 		for (var i = 0; i < jChildren.length; i++){
 			jChildren[i].css('width',  jChildren[i].width() * factor);
-		};
+		}
 		return jChildren[0].height();
+	}
+
+	function getMode(_mode){
+		if(typeof _mode === "object"){
+			return _mode;
+		}else{
+			if(_mode === "bootstrap"){
+				return {
+					mode: [
+						{
+							minWidth: 1200,
+							columns: 4
+						},{
+							minWidth: 992,
+							count: 3
+						},{
+							minWidth: 768,
+							count: 2
+						},{
+							maxWidth: 768,
+							count: 0.4,
+							maxHeight: screen.height * 0.5
+						},
+					]
+				};
+			}else{
+				return {};
+			}
+		}
 	}
 
 	function getScreenSettings(galleryWidth, mode){
