@@ -124,12 +124,15 @@ The maximal image height helps to show multiple images in a row, if the images d
 
 ### Custom Modes
 
-The mode parameter can alsobe an object that defnies the breakpoints like in the following sample:
+The mode parameter can also be an object that defnies the breakpoints and max height of an image.  
+Check out the [Codepen](http://codepen.io/xremix/pen/QyqJzQ) demo or the following sample object:
 
 ```JS
-{
-	maxHeight: screen.height * 0.5,
-	breakPoints:[
+var gallery = $('.photos').gallerify({
+	margin:5,
+	mode:{
+		maxHeight: screen.height * 0.5,
+		breakPoints:[
 		{
 			minWidth: 1170,
 			columns: 10,
@@ -137,14 +140,17 @@ The mode parameter can alsobe an object that defnies the breakpoints like in the
 			minWidth: 970,
 			columns: 6,
 		},{
+
 			minWidth: 750,
 			columns: 3,
 		},{
 			maxWidth: 750,
 			columns: 2,
 		}
-	]
-}
+		]
+	},
+	lastRow:'adjust'
+});	
 ```
 
 ## Community

@@ -100,9 +100,6 @@
 		var dChildren = jGallery.children(); //dom childs
 		var width = _params.width || jGallery.width();
 		var screenSettings = getScreenSettings(width, _params.mode);
-		// TODO remove this console output:
-		console.log('Screen settings: ');
-		console.log(screenSettings);
 		var imagesPerRow = _params.imagesPerRow || screenSettings.itemsPerRow;
 
 		var lastRowHeight;
@@ -159,8 +156,6 @@
 	function resizeToSameHeight(jChildren, childHeight){
 		for (var i = 0; i < jChildren.length; i++){
 			var factor =  childHeight / jChildren[i].height();
-			// TODO remove:
-			// var x = jChildren[i].width();
 			jChildren[i].width(jChildren[i].width() * factor);
 		}
 		return jChildren[0].height(); //Returning height of the current row
@@ -178,7 +173,6 @@
 	}
 
 	function getMode(_mode){
-		console.log(_mode);
 		if(typeof _mode === "object"){
 			return _mode;
 		}else{
@@ -258,7 +252,7 @@
 						}
 					]
 				};
-			}else { //if(_mode == "default"){ // ------- default mode -------
+			}else { // ------- default mode -------
 				return{
 					maxHeight: screen.height * 0.5,
 					breakPoints:[
@@ -287,89 +281,21 @@
 			maxHeight   : undefined
 		};
 
-		//Default MAX HEIGHT for mobile
+		// Default MAX HEIGHT for mobile
 		if(galleryWidth <= 768){
 			ret.maxHeight = screen.height;
 		}
 
-		if(true){
-			// console.log("New mode");
-			var _mode = getMode(mode);
-			for (var i = _mode.breakPoints.length - 1; i >= 0; i--) {
-				// console.log(_mode.breakPoints[i]);
-				if(_mode.breakPoints[i].minWidth && _mode.breakPoints[i].minWidth < galleryWidth){
-					ret.itemsPerRow = _mode.breakPoints[i].columns;
-					// console.log('break');
-					// break;
-				}else if(_mode.breakPoints[i].maxWidth && _mode.breakPoints[i].maxWidth > galleryWidth){
-					ret.itemsPerRow = _mode.breakPoints[i].columns;
-					// console.log(_mode.breakPoints[i]);
-					// break;
-				}
-			}
-			if(_mode.maxHeight){
-				ret.maxHeight = _mode.maxHeight;
+		var _mode = getMode(mode);
+		for (var i = _mode.breakPoints.length - 1; i >= 0; i--) {
+			if(_mode.breakPoints[i].minWidth && _mode.breakPoints[i].minWidth < galleryWidth){
+				ret.itemsPerRow = _mode.breakPoints[i].columns;
+			}else if(_mode.breakPoints[i].maxWidth && _mode.breakPoints[i].maxWidth > galleryWidth){
+				ret.itemsPerRow = _mode.breakPoints[i].columns;
 			}
 		}
-	else {
-		// console.log("old mode");
-		if(mode == "bootstrap"){ // ------- bootstrap mode -------
-				if(galleryWidth > 1200){
-					ret.itemsPerRow = 4;
-				}else if(galleryWidth > 992){
-					ret.itemsPerRow = 3;
-				}else if(galleryWidth > 768){
-					ret.itemsPerRow = 2;
-				}else {
-					ret.itemsPerRow = 0.4;
-				}
-				//MAX HEIGHT
-				if(galleryWidth > 768){
-					ret.maxHeight = screen.height * 0.5;
-				}
-			}else if(mode == "flickr"){ // ------- flickr mode -------
-				if(galleryWidth > 1800){
-					ret.itemsPerRow = 4;
-				}else if(galleryWidth > 1300){
-					ret.itemsPerRow = 3;
-				}else if(galleryWidth > 610){
-					ret.itemsPerRow = 2;
-				}else {
-					ret.itemsPerRow = 1;
-				}
-				//MAX HEIGHT
-				if(galleryWidth > 768){
-					ret.maxHeight = screen.height * 0.4;
-				}
-			}else if(mode == "small"){ // ------- small mode -------
-				if(galleryWidth > 1800){
-					ret.itemsPerRow = 14;
-				}else if(galleryWidth > 1300){
-					ret.itemsPerRow = 10;
-				}else if(galleryWidth > 610){
-					ret.itemsPerRow = 6;
-				}else {
-					ret.itemsPerRow = 4;
-				}
-				//MAX HEIGHT
-				if(galleryWidth > 768){
-					ret.maxHeight = screen.height * 0.4;
-				}
-			}else{                           // ------- default mode -------
-				if(galleryWidth > 1800){
-					ret.itemsPerRow = 4;
-				}else if(galleryWidth > 1200){
-					ret.itemsPerRow = 3;
-				}else if(galleryWidth > 768){
-					ret.itemsPerRow = 2;
-				}else {
-					ret.itemsPerRow = 1;
-				}
-				//MAX HEIGHT
-				if(galleryWidth > 768){
-					ret.maxHeight = screen.height * 0.5;
-				}
-			}
+		if(_mode.maxHeight){
+			ret.maxHeight = _mode.maxHeight;
 		}
 		return ret;
 	}
