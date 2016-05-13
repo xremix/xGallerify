@@ -51,7 +51,7 @@ Check out the full working [CodePen Demo](http://codepen.io/xremix/pen/QyqJzQ) f
 | Name | Default | Type | Description |
 |---|---|---|---|
 | `margin` | e.g. `10`  | `int` | Value in pixels of the margin of each image on each side  |
-| `mode` | `default`, `bootstrap`, `flickr` or `small`  | `string` | The style mode wich defines how the gallery should be displayed and how many images fit in a row |
+| `mode` | `default`, `bootstrap`, `flickr` or `small`  | `string` or `object` | The style mode wich defines how the gallery should be displayed and how many images fit in a row |
 | `lastRow` | `adjust` or `fullwidth` | `string` | Set the last row to the full width or find a good adjustment. *NOTE:* I personally prefer `adjust` |
 | `jsSetup` | `true` or `false` | `bool` | Sets some default CSS values to the elements like `dislay:inline-block` and for each image inside of a container `width:100%`. This can be disabled if you want to have your own floating or style this in plain css |
 | `debounceLoad` | `true` or `false` | `bool` | This functionality waits `50ms` before rendering a new loaded image to boost the performance on older machines. Default is set to `true` |
@@ -92,6 +92,8 @@ The modes property defines **how many** images do show at what **container width
 If you want to have another mode you are welcome to contribute or open an [issue](https://github.com/xremix/xGallerify/issues).  
 The maximal image height helps to show multiple images in a row, if the images do have a very high ratio like 3:9.
 
+### Predefined Modes
+
 | Mode| Breakpoint | Images per row |
 | ---------------- | ---------------- | ---------------- |
 | **default mode** | Container width > 1800 | 4 |
@@ -115,6 +117,30 @@ The maximal image height helps to show multiple images in a row, if the images d
 |  | Container width < 610 | 4 |
 |  | Maximal image height | Screen Height * 0.4 |
 
+### Custom Modes
+
+The mode parameter can alsobe an object that defnies the breakpoints like in the following sample:
+
+```JS
+{
+	maxHeight: screen.height * 0.5,
+	breakPoints:[
+		{
+			minWidth: 1170,
+			columns: 10,
+		},{
+			minWidth: 970,
+			columns: 6,
+		},{
+			minWidth: 750,
+			columns: 3,
+		},{
+			maxWidth: 750,
+			columns: 2,
+		}
+	]
+}
+```
 
 ## Community
 
