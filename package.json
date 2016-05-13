@@ -1,25 +1,29 @@
 {
-  "name": "xgallerify",
-  "version": "0.0.9",
-  "description": "A lightweight, responsive, smart gallery based on jQuery.",
-  "main": "gulpfile.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/xremix/xGallerify.git"
-  },
-  "author": "xremix",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/xremix/xGallerify/issues"
-  },
-  "homepage": "https://github.com/xremix/xGallerify#readme",
-  "devDependencies": {
-    "gulp": "^3.9.0",
-    "gulp-plumber": "^1.0.1",
-    "gulp-rename": "^1.2.2",
-    "gulp-uglify": "^1.5.1"
-  }
+	"name": "xgallerify",
+	"version": "0.0.14",
+	"description": "A lightweight, responsive, smart gallery based on jQuery.",
+	"main": "gulpfile.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/xremix/xGallerify.git"
+	},
+	"author": "xremix",
+	"license": "MIT",
+	"keywords":["gallery", "xgallerify", "jquery"],
+	"bugs": {
+		"url": "https://github.com/xremix/xGallerify/issues"
+	},
+	"homepage": "https://github.com/xremix/xGallerify#readme",
+	"devDependencies": {
+		"gulp": "^3.9.1",
+		"gulp-plumber": "^1.1.0",
+		"gulp-rename": "^1.2.2",
+		"gulp-uglify": "^1.5.3"
+	},
+	"dependencies": {
+		"jquery": "*"
+	}
 }

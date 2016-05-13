@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>xGallerify - Flickr Explore Demo</title>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+	<style type="text/css">
+		body{
+			background: #f3f5f6;
+			color:#212124;
+			margin:0px 20px;
+		}
+		h1{
+			text-align: center;
+			font-weight: 100;
+			margin:50px 0;
+		}
+	</style>
+</head>
+<body>
+	<h1>xGallerify - Flickr Explore Demo</h1>
+	<div class="photos">
+	</div>
+
+	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+	<script src="dist/jquery.xgallerify.min.js"></script>
+	<script type="text/javascript">
+		$.get('https://api.flickr.com/services/rest/?method=flickr.interestingness.getList&api_key=6e331505ca097640de63eda415ff7c62&format=json&nojsoncallback=1')
+		.done(function(flickrImages){
+			//Initialize Gallery
+			var gallery = $('.photos').gallerify({
+				margin: 2,
+				mode: 'flickr',
+				lastRow: 'adjust',
+				debounceLoad: true,
+				debounceTime: 50
+			});
+
+			// Add images after the Gallery has been initialized
+			for (var i = 0; i < flickrImages.photos.photo.length; i++) {
+				var photo = flickrImages.photos.photo[i];
+				var img = '<img src="https://farm'+photo.farm+'.staticflickr.com/'+photo.server+'/'+photo.id+'_'+photo.secret+'.jpg">';
+				$('.photos').append(img)
+			};
+
+			//Render Async will allow to render the images that have been loaded asynchronus after the Gallery was initialized
+			gallery.gallerify.renderAsyncImages();
+		
+		});
+
+	</script>
+</body>
+</html>

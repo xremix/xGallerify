@@ -5,7 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title>JS Gallery</title>
+	<title>xGallerify</title>
 
 	<!-- CSS -->
 	<style type="text/css">
@@ -147,8 +147,7 @@
 
 	<!-- Scripts -->
 	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-	<script src="https://rawgit.com/xremix/xGallerify/master/dist/jquery.xgallerify.min.js"></script>
-	<!--<script src="dist/jquery.xgallerify.js"></script>-->
+	<script src="dist/jquery.xgallerify.js"></script> <!-- This paths works localy and with the CDN sample -->
 	<script type="text/javascript">
 		var gallery = $('.photos').gallerify({
 			margin:10,
@@ -157,15 +156,27 @@
 		});	
 		//Demo async loading simulation
 		setTimeout(function(){
-			$(".photos").append($($(".photos").children()[0]).clone());
-			$(".photos").append($($(".photos").children()[0]).clone());
-			$(".photos").append($($(".photos").children()[13]).clone());
-			$(".photos").append($($(".photos").children()[0]).clone());
-			$(".photos").append($($(".photos").children()[13]).clone());
-			$(".photos").append($($(".photos").children()[0]).clone());
-			$(".photos").append($($(".photos").children()[0]).clone());
-				$('.photos').gallerify.renderAsyncImages();
+			$(".photos").append(generateRandomImage());
+			$(".photos").append(generateRandomImage());
+			$(".photos").append(generateRandomImage());
+			$(".photos").append(generateRandomImage());
+			$(".photos").append(generateRandomImage());
+			$(".photos").append(generateRandomImage());
+			$(".photos").append(generateRandomImage());
+			$(".photos").append(generateRandomImage());
+			$(".photos").append(generateRandomImage());
+			$(".photos").append(generateRandomImage());
+			$(".photos").append(generateRandomImage());
+			$(".photos").append(generateRandomImage());
+			$(".photos").append(generateRandomImage());
+			$(".photos").append(generateRandomImage());
+			$(".photos").append(generateRandomImage());
+			$(".photos").append(generateRandomImage());
+			gallery.gallerify.renderAsyncImages();
 		}, 2000);
+		function generateRandomImage(){
+			return $('<div class="photo"><img src="http://placehold.it/'+ Math.floor((Math.random() * 900) + 200) + 'x' + Math.floor((Math.random() * 900) + 200) + '"><div class="title">random</div></div>');
+		}
 	</script>
 </body>
 </html>
