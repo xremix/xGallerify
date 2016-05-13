@@ -1,3 +1,5 @@
+/* globals jQuery */
+"use strict";
 (function($){
 	var windowHasLoaded = false;
 	$(window).load(function(){
@@ -15,18 +17,18 @@
 
 		//Initial Parameters
 		params = params || {};
-		params.margin = params.margin != undefined && params.margin != null ? params.margin : 10;
+		params.margin = params.margin !== undefined && params.margin !== null ? params.margin : 10;
 		params.width = params.width || undefined; //width of the whole gallery
 		params.mode = params.mode || 'default'; //default, bootstrap, flickr, small
-		params.jsSetup = params.jsSetup != undefined ? params.jsSetup : true; //if you are going to set the css variables for the elements in CSS
+		params.jsSetup = params.jsSetup !== undefined && params.jsSetup !== null ? params.jsSetup : true; //if you are going to set the css variables for the elements in CSS
 		params.imagesPerRow = params.imagesPerRow || undefined; //How many images should show up at a MINIMUM
-		params.debounceLoad = params.debounceLoad != undefined ? params.debounceLoad : true; //How many images should show up at a MINIMUM
-		params.debounceTime = params.debounceTime != undefined ? params.debounceTime : 50; //How many images should show up at a MINIMUM
+		params.debounceLoad = params.debounceLoad !== undefined && params.debounceLoad !== null ? params.debounceLoad : true; //How many images should show up at a MINIMUM
+		params.debounceTime = params.debounceTime !== undefined && params.debounceTime !== null ? params.debounceTime : 50; //How many images should show up at a MINIMUM
 		params.lastRow = params.lastRow || "adjust";
 		init(_this, params);
 
 		this.gallerify.render = function(){
-			setupChilds(_this, params.margin)
+			setupChilds(_this, params.margin);
 			renderGallery(_this, params);
 		};
 
@@ -53,7 +55,9 @@
 	///////// PRIVATE FUNCTIONS /////////
 	function init(jGallery, params){
 		//Allow
-		params.jsSetup && setupChilds(jGallery, params.margin);
+		if(params.jsSetup){
+			setupChilds(jGallery, params.margin);
+		}
 		jGallery.addClass("xgallerify");
 		if(windowHasLoaded){
 			renderGallery(jGallery, params);
@@ -80,7 +84,7 @@
 	}
 
 	function setupChilds(jGallery, margin){
-		jChildren = $(jGallery.children());
+		var jChildren = $(jGallery.children());
 		jChildren
 		.css("display", "inline-block")
 		.css("margin", margin)
@@ -96,7 +100,7 @@
 		var dChildren = jGallery.children(); //dom childs
 		var width = _params.width || jGallery.width();
 		var screenSettings = getScreenSettings(width, _params.mode);
-		imagesPerRow = _params.imagesPerRow || screenSettings.itemsPerRow;
+		var imagesPerRow = _params.imagesPerRow || screenSettings.itemsPerRow;
 
 		var lastRowHeight;
 		//TODO Might need some rework
@@ -131,7 +135,7 @@
 					}
 				}
 			}
-		};
+		}
 	}
 
 	function renderRow(jChildren, galleryWidth, margin, maxHeight){
@@ -152,9 +156,10 @@
 	function resizeToSameHeight(jChildren, childHeight){
 		for (var i = 0; i < jChildren.length; i++){
 			var factor =  childHeight / jChildren[i].height();
-			var x = jChildren[i].width();
+			// TODO remove:
+			// var x = jChildren[i].width();
 			jChildren[i].width(jChildren[i].width() * factor);
-		};
+		}
 		return jChildren[0].height(); //Returning height of the current row
 	}
 
@@ -165,8 +170,37 @@
 		var factor = (rowWidth - (jChildren.length * (margin + 4) * 2)) / currentWidth;
 		for (var i = 0; i < jChildren.length; i++){
 			jChildren[i].css('width',  jChildren[i].width() * factor);
-		};
+		}
 		return jChildren[0].height();
+	}
+
+	function getMode(_mode){
+		if(typeof _mode === "object"){
+			return _mode;
+		}else{
+			if(_mode === "bootstrap"){
+				return {
+					mode: [
+						{
+							minWidth: 1200,
+							columns: 4
+						},{
+							minWidth: 992,
+							count: 3
+						},{
+							minWidth: 768,
+							count: 2
+						},{
+							maxWidth: 768,
+							count: 0.4,
+							maxHeight: screen.height * 0.5
+						},
+					]
+				};
+			}else{
+				return {};
+			}
+		}
 	}
 
 	function getScreenSettings(galleryWidth, mode){
@@ -241,18 +275,18 @@
 	}
 
 	function debounce(func, wait, immediate) {
-			var timeout;
-			return function() {
-				var context = this, args = arguments;
-				var later = function() {
-					timeout = null;
-					if (!immediate) func.apply(context, args);
-				};
-				var callNow = immediate && !timeout;
-				clearTimeout(timeout);
-				timeout = setTimeout(later, wait);
-				if (callNow) func.apply(context, args);
+		var timeout;
+		return function() {
+			var context = this, args = arguments;
+			var later = function() {
+				timeout = null;
+				if (!immediate) func.apply(context, args);
 			};
+			var callNow = immediate && !timeout;
+			clearTimeout(timeout);
+			timeout = setTimeout(later, wait);
+			if (callNow) func.apply(context, args);
 		};
+	}
 
 }( jQuery ));

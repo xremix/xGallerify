@@ -1,3 +1,4 @@
+/* globals jQuery */
 "use strict";
 (function($){
 	var windowHasLoaded = false;
@@ -16,13 +17,13 @@
 
 		//Initial Parameters
 		params = params || {};
-		params.margin = params.margin != undefined && params.margin != null ? params.margin : 10;
+		params.margin = params.margin !== undefined && params.margin !== null ? params.margin : 10;
 		params.width = params.width || undefined; //width of the whole gallery
 		params.mode = params.mode || 'default'; //default, bootstrap, flickr, small
-		params.jsSetup = params.jsSetup != undefined ? params.jsSetup : true; //if you are going to set the css variables for the elements in CSS
+		params.jsSetup = params.jsSetup !== undefined && params.jsSetup !== null ? params.jsSetup : true; //if you are going to set the css variables for the elements in CSS
 		params.imagesPerRow = params.imagesPerRow || undefined; //How many images should show up at a MINIMUM
-		params.debounceLoad = params.debounceLoad != undefined ? params.debounceLoad : true; //How many images should show up at a MINIMUM
-		params.debounceTime = params.debounceTime != undefined ? params.debounceTime : 50; //How many images should show up at a MINIMUM
+		params.debounceLoad = params.debounceLoad !== undefined && params.debounceLoad !== null ? params.debounceLoad : true; //How many images should show up at a MINIMUM
+		params.debounceTime = params.debounceTime !== undefined && params.debounceTime !== null ? params.debounceTime : 50; //How many images should show up at a MINIMUM
 		params.lastRow = params.lastRow || "adjust";
 		init(_this, params);
 
@@ -155,7 +156,8 @@
 	function resizeToSameHeight(jChildren, childHeight){
 		for (var i = 0; i < jChildren.length; i++){
 			var factor =  childHeight / jChildren[i].height();
-			var x = jChildren[i].width();
+			// TODO remove:
+			// var x = jChildren[i].width();
 			jChildren[i].width(jChildren[i].width() * factor);
 		}
 		return jChildren[0].height(); //Returning height of the current row
@@ -273,18 +275,18 @@
 	}
 
 	function debounce(func, wait, immediate) {
-			var timeout;
-			return function() {
-				var context = this, args = arguments;
-				var later = function() {
-					timeout = null;
-					if (!immediate) func.apply(context, args);
-				};
-				var callNow = immediate && !timeout;
-				clearTimeout(timeout);
-				timeout = setTimeout(later, wait);
-				if (callNow) func.apply(context, args);
+		var timeout;
+		return function() {
+			var context = this, args = arguments;
+			var later = function() {
+				timeout = null;
+				if (!immediate) func.apply(context, args);
 			};
+			var callNow = immediate && !timeout;
+			clearTimeout(timeout);
+			timeout = setTimeout(later, wait);
+			if (callNow) func.apply(context, args);
 		};
+	}
 
 }( jQuery ));
