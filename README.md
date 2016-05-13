@@ -4,10 +4,10 @@
 
 A lightweight, responsive, smart gallery based on jQuery.
 
-- Completly responsive
+- Responsive
 - Simple to use
 - Customizable and custom styling
-- Only 2.5kb file size
+- Only 3kb file size
 - [AngularJS directive available](https://github.com/JohnnyTheTank/angular-xGallerify)
 
 ## Demo
@@ -20,9 +20,9 @@ To see a real-live sample see the [Flickr Demo](https://rawgit.com/xremix/xGalle
 
 ```JS
 $('.photos').gallerify({
-    margin:10,
-    mode:'default',
-    lastRow:'adjust',
+	margin:10,
+	mode:'default',
+	lastRow:'adjust',
 });
 ```
 
@@ -59,40 +59,14 @@ Check out the full working [CodePen Demo](http://codepen.io/xremix/pen/QyqJzQ) f
 | `width` | `800` | `int` | Width of the gallery in `px` - **Work in Progress!** It is recommended to use an outer div with a specific width to controll the width of the Gallery|
 
 
-## Functions
-
-### Render
-To reinitialize the gallery when new images are added / loaded
-```JS
-$('.photos').gallerify();
-//...
-$(window).on('load', function() { // Eventlistener that fires when all images are loaded
-    $('.photos').gallerify.render();
-});
-```
-
-### Render Async Images
-Automatically renders every time an image has been loaded. This needs to get called everytime you add a new image to `.photos` after calling `gallerify()`, if you don't have your own *image loaded* event listener like described in the Render function documentation.
-
-```JS
-$('.photos').gallerify();
-
-$('.photos').append('<img src="sample-image.jpg">');
-$('.photos').append('<img src="sample-image2.jpg">');
-$('.photos').append('<img src="sample-image3.jpg">');
-
-$('.photos').gallerify.renderAsyncImages();
-```
-
-## Modes
+### Modes
 
 The modes property defines **how many** images do show at what **container width**
 
-*NOTE*
-If you want to have another mode you are welcome to contribute or open an [issue](https://github.com/xremix/xGallerify/issues).  
+*NOTE* If you want to have another mode you are welcome to contribute or open an [issue](https://github.com/xremix/xGallerify/issues).  
 The maximal image height helps to show multiple images in a row, if the images do have a very high ratio like 3:9.
 
-### Predefined Modes
+#### Predefined Modes
 
 | Mode| Breakpoint | Images per row |
 | ---------------- | ---------------- | ---------------- |
@@ -122,7 +96,7 @@ The maximal image height helps to show multiple images in a row, if the images d
 |  | Container width < 610 | 4 |
 |  | Maximal image height | Screen Height * 0.4 |
 
-### Custom Modes
+#### Custom Modes
 
 The mode parameter can also be an object that defnies the breakpoints and max height of an image.  
 Check out the [Codepen](http://codepen.io/xremix/pen/QyqJzQ) demo or the following sample object:
@@ -133,24 +107,48 @@ var gallery = $('.photos').gallerify({
 	mode:{
 		maxHeight: screen.height * 0.5,
 		breakPoints:[
-		{
-			minWidth: 1170,
-			columns: 10,
-		},{
-			minWidth: 970,
-			columns: 6,
-		},{
-
-			minWidth: 750,
-			columns: 3,
-		},{
-			maxWidth: 750,
-			columns: 2,
-		}
+			{
+				minWidth: 1170,
+				columns: 10,
+			},{
+				minWidth: 970,
+				columns: 6,
+			},{
+				minWidth: 750,
+				columns: 3,
+			},{
+				maxWidth: 750,
+				columns: 2,
+			}
 		]
 	},
 	lastRow:'adjust'
 });	
+```
+
+## Functions
+
+### Render
+To reinitialize the gallery when new images are added / loaded
+```JS
+$('.photos').gallerify();
+//...
+$(window).on('load', function() { // Eventlistener that fires when all images are loaded
+    $('.photos').gallerify.render();
+});
+```
+
+### Render Async Images
+Automatically renders every time an image has been loaded. This needs to get called everytime you add a new image to `.photos` after calling `gallerify()`, if you don't have your own *image loaded* event listener like described in the Render function documentation.
+
+```JS
+$('.photos').gallerify();
+
+$('.photos').append('<img src="sample-image.jpg">');
+$('.photos').append('<img src="sample-image2.jpg">');
+$('.photos').append('<img src="sample-image3.jpg">');
+
+$('.photos').gallerify.renderAsyncImages();
 ```
 
 ## Community
