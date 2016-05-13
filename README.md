@@ -101,7 +101,12 @@ The maximal image height helps to show multiple images in a row, if the images d
 |  | Container width > 768 | 2 |
 |  | Container width < 768 | 1 |
 |  | Maximal image height | Screen Height * 0.5 |
-| **bootstrap mode** | Container width > 1200 | 4 |
+| **bootstrap mode** | Container width > 1170 | 4 |
+|  | Container width > 970 | 3 |
+|  | Container width > 750 | 2 |
+|  | Container width < 750 | 1 |
+|  | Maximal image height | Screen Height * 0.5 |
+| **bootstrapv4 mode** | Container width > 1200 | 4 |
 |  | Container width > 992 | 3 |
 |  | Container width > 768 | 2 |
 |  | Container width < 768 | 1 |
