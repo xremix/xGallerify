@@ -100,6 +100,9 @@
 		var dChildren = jGallery.children(); //dom childs
 		var width = _params.width || jGallery.width();
 		var screenSettings = getScreenSettings(width, _params.mode);
+		// TODO remove this console output:
+		console.log('Screen settings: ');
+		console.log(screenSettings);
 		var imagesPerRow = _params.imagesPerRow || screenSettings.itemsPerRow;
 
 		var lastRowHeight;
@@ -175,30 +178,105 @@
 	}
 
 	function getMode(_mode){
+		console.log(_mode);
 		if(typeof _mode === "object"){
 			return _mode;
 		}else{
-			if(_mode === "bootstrap"){
-				return {
-					mode: [
+			if(_mode == "bootstrap"){ // ------- bootstrap mode -------
+				return{
+					maxHeight: screen.height * 0.5,
+					breakPoints:[
 						{
-							minWidth: 1200,
-							columns: 4
+							minWidth: 1170,
+							columns: 4,
 						},{
-							minWidth: 992,
-							count: 3
+							minWidth: 970,
+							columns: 3,
 						},{
-							minWidth: 768,
-							count: 2
+							minWidth: 750,
+							columns: 2,
 						},{
-							maxWidth: 768,
-							count: 0.4,
-							maxHeight: screen.height * 0.5
-						},
+							maxWidth: 750,
+							columns: 0.4,
+						}
 					]
 				};
-			}else{
-				return {};
+			}else if(_mode == "bootstrapv4"){ // ------- bootstrap mode -------
+				return{
+					maxHeight: screen.height * 0.5,
+					breakPoints:[
+						{
+							minWidth: 1200,
+							columns: 4,
+						},{
+							minWidth: 992,
+							columns: 3,
+						},{
+							minWidth: 768,
+							columns: 2,
+						},{
+							maxWidth: 768,
+							columns: 0.4,
+						}
+					]
+				};
+			}else if(_mode == "flickr"){ // ------- flickr mode -------
+				return{
+					maxHeight: screen.height * 0.4,
+					breakPoints:[
+						{
+							minWidth: 1800,
+							columns: 4,
+						},{
+							minWidth: 1300,
+							columns: 3,
+						},{
+							minWidth: 610,
+							columns: 2,
+						},{
+							maxWidth: 610,
+							columns: 1,
+						}
+					]
+				};
+			}else if(_mode == "small"){ // ------- small mode -------
+				return{
+					maxHeight: screen.height * 0.4,
+					breakPoints:[
+						{
+							minWidth: 1800,
+							columns: 14,
+						},{
+							minWidth: 1300,
+							columns: 10,
+						},{
+							minWidth: 610,
+							columns: 6,
+						},{
+							maxWidth: 610,
+							columns: 4,
+						}
+					]
+				};
+			}else { //if(_mode == "default"){ // ------- default mode -------
+				return{
+					maxHeight: screen.height * 0.5,
+					breakPoints:[
+						{
+							minWidth: 1800,
+							columns: 4,
+						},{
+							minWidth: 1200,
+							columns: 3,
+						},{
+							minWidth: 768,
+							columns: 2,
+						},{
+							maxWidth: 768,
+							columns: 1,
+						}
+					]
+				};
 			}
 		}
 	}
@@ -214,61 +292,83 @@
 			ret.maxHeight = screen.height;
 		}
 
+		if(true){
+			// console.log("New mode");
+			var _mode = getMode(mode);
+			for (var i = _mode.breakPoints.length - 1; i >= 0; i--) {
+				// console.log(_mode.breakPoints[i]);
+				if(_mode.breakPoints[i].minWidth && _mode.breakPoints[i].minWidth < galleryWidth){
+					ret.itemsPerRow = _mode.breakPoints[i].columns;
+					// console.log('break');
+					// break;
+				}else if(_mode.breakPoints[i].maxWidth && _mode.breakPoints[i].maxWidth > galleryWidth){
+					ret.itemsPerRow = _mode.breakPoints[i].columns;
+					// console.log(_mode.breakPoints[i]);
+					// break;
+				}
+			}
+			if(_mode.maxHeight){
+				ret.maxHeight = _mode.maxHeight;
+			}
+		}
+	else {
+		// console.log("old mode");
 		if(mode == "bootstrap"){ // ------- bootstrap mode -------
-			if(galleryWidth > 1200){
-				ret.itemsPerRow = 4;
-			}else if(galleryWidth > 992){
-				ret.itemsPerRow = 3;
-			}else if(galleryWidth > 768){
-				ret.itemsPerRow = 2;
-			}else {
-				ret.itemsPerRow = 0.4;
-			}
-			//MAX HEIGHT
-			if(galleryWidth > 768){
-				ret.maxHeight = screen.height * 0.5;
-			}
-		}else if(mode == "flickr"){ // ------- flickr mode -------
-			if(galleryWidth > 1800){
-				ret.itemsPerRow = 4;
-			}else if(galleryWidth > 1300){
-				ret.itemsPerRow = 3;
-			}else if(galleryWidth > 610){
-				ret.itemsPerRow = 2;
-			}else {
-				ret.itemsPerRow = 1;
-			}
-			//MAX HEIGHT
-			if(galleryWidth > 768){
-				ret.maxHeight = screen.height * 0.4;
-			}
-		}else if(mode == "small"){ // ------- small mode -------
-			if(galleryWidth > 1800){
-				ret.itemsPerRow = 14;
-			}else if(galleryWidth > 1300){
-				ret.itemsPerRow = 10;
-			}else if(galleryWidth > 610){
-				ret.itemsPerRow = 6;
-			}else {
-				ret.itemsPerRow = 4;
-			}
-			//MAX HEIGHT
-			if(galleryWidth > 768){
-				ret.maxHeight = screen.height * 0.4;
-			}
-		}else{                           // ------- default mode -------
-			if(galleryWidth > 1800){
-				ret.itemsPerRow = 4;
-			}else if(galleryWidth > 1200){
-				ret.itemsPerRow = 3;
-			}else if(galleryWidth > 768){
-				ret.itemsPerRow = 2;
-			}else {
-				ret.itemsPerRow = 1;
-			}
-			//MAX HEIGHT
-			if(galleryWidth > 768){
-				ret.maxHeight = screen.height * 0.5;
+				if(galleryWidth > 1200){
+					ret.itemsPerRow = 4;
+				}else if(galleryWidth > 992){
+					ret.itemsPerRow = 3;
+				}else if(galleryWidth > 768){
+					ret.itemsPerRow = 2;
+				}else {
+					ret.itemsPerRow = 0.4;
+				}
+				//MAX HEIGHT
+				if(galleryWidth > 768){
+					ret.maxHeight = screen.height * 0.5;
+				}
+			}else if(mode == "flickr"){ // ------- flickr mode -------
+				if(galleryWidth > 1800){
+					ret.itemsPerRow = 4;
+				}else if(galleryWidth > 1300){
+					ret.itemsPerRow = 3;
+				}else if(galleryWidth > 610){
+					ret.itemsPerRow = 2;
+				}else {
+					ret.itemsPerRow = 1;
+				}
+				//MAX HEIGHT
+				if(galleryWidth > 768){
+					ret.maxHeight = screen.height * 0.4;
+				}
+			}else if(mode == "small"){ // ------- small mode -------
+				if(galleryWidth > 1800){
+					ret.itemsPerRow = 14;
+				}else if(galleryWidth > 1300){
+					ret.itemsPerRow = 10;
+				}else if(galleryWidth > 610){
+					ret.itemsPerRow = 6;
+				}else {
+					ret.itemsPerRow = 4;
+				}
+				//MAX HEIGHT
+				if(galleryWidth > 768){
+					ret.maxHeight = screen.height * 0.4;
+				}
+			}else{                           // ------- default mode -------
+				if(galleryWidth > 1800){
+					ret.itemsPerRow = 4;
+				}else if(galleryWidth > 1200){
+					ret.itemsPerRow = 3;
+				}else if(galleryWidth > 768){
+					ret.itemsPerRow = 2;
+				}else {
+					ret.itemsPerRow = 1;
+				}
+				//MAX HEIGHT
+				if(galleryWidth > 768){
+					ret.maxHeight = screen.height * 0.5;
+				}
 			}
 		}
 		return ret;

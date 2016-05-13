@@ -182,9 +182,29 @@
 		if(typeof _mode === "object"){
 			return _mode;
 		}else{
-			if(_mode === "bootstrap"){
-				return {
-					mode: [
+			if(_mode == "bootstrap"){ // ------- bootstrap mode -------
+				return{
+					maxHeight: screen.height * 0.5,
+					breakPoints:[
+						{
+							minWidth: 1170,
+							columns: 4,
+						},{
+							minWidth: 970,
+							columns: 3,
+						},{
+							minWidth: 750,
+							columns: 2,
+						},{
+							maxWidth: 750,
+							columns: 0.4,
+						}
+					]
+				};
+			}else if(_mode == "bootstrapv4"){ // ------- bootstrap mode -------
+				return{
+					maxHeight: screen.height * 0.5,
+					breakPoints:[
 						{
 							minWidth: 1200,
 							columns: 4,
