@@ -4,10 +4,10 @@
 
 A lightweight, responsive, smart gallery based on jQuery.
 
-- Completly responsive
+- Responsive
 - Simple to use
 - Customizable and custom styling
-- Only 2.5kb file size
+- Only 3kb file size
 - [AngularJS directive available](https://github.com/JohnnyTheTank/angular-xGallerify)
 
 ## Demo
@@ -20,9 +20,9 @@ To see a real-live sample see the [Flickr Demo](https://rawgit.com/xremix/xGalle
 
 ```JS
 $('.photos').gallerify({
-    margin:10,
-    mode:'default',
-    lastRow:'adjust',
+	margin:10,
+	mode:'default',
+	lastRow:'adjust',
 });
 ```
 
@@ -51,13 +51,80 @@ Check out the full working [CodePen Demo](http://codepen.io/xremix/pen/QyqJzQ) f
 | Name | Default | Type | Description |
 |---|---|---|---|
 | `margin` | e.g. `10`  | `int` | Value in pixels of the margin of each image on each side  |
-| `mode` | `default`, `bootstrap`, `flickr` or `small`  | `string` | The style mode wich defines how the gallery should be displayed and how many images fit in a row |
-| `lastRow` | `adjust` or `fullwidth` | `string` | Set the last row to the full width or find a good adjustment. *NOTE:* I personally prefer `adjust` |
-| `jsSetup` | `true` or `false` | `bool` | Sets some default CSS values to the elements like `dislay:inline-block` and for each image inside of a container `width:100%`. This can be disabled if you want to have your own floating or style this in plain css |
-| `debounceLoad` | `true` or `false` | `bool` | This functionality waits `50ms` before rendering a new loaded image to boost the performance on older machines. Default is set to `true` |
+| `mode` | `default`, `bootstrap`, `bootstrapv4`, `flickr`, `small` or custom object  | `string` or `object` | The style mode wich defines how the gallery should be displayed and how many images fit in a row. See description in the mode section. |
+| `lastRow` | `adjust` or `fullwidth` | `string` | Set the last row to the full width or find a good adjustment. *NOTE:* I personally prefer `adjust`. |
+| `jsSetup` | `true` or `false` | `bool` | Sets some default CSS values to the elements like `dislay:inline-block` and for each image inside of a container `width:100%`. This can be disabled if you want to have your own floating or style this in plain CSS. |
+| `debounceLoad` | `true` or `false` | `bool` | This functionality waits `50ms` before rendering a new loaded image to boost the performance on older machines. Default is set to `true`. |
 | `debounceTime` | `50` | `int` | Set the time for the **debounceLoad**. Default is set to 50ms. |
-| `width` | `800` | `int` | Width of the gallery in `px` - **Work in Progress!** It is recommended to use an outer div with a specific width to controll the width of the Gallery|
+| `width` | `800` | `int` | Width of the gallery in `px` - **Work in Progress!** It is recommended to use an outer div with a specific width to controll the width of the Gallery. |
 
+
+### Modes
+
+The modes property defines **how many** images do show at what **container width**
+
+*NOTE* If you want to have another mode you are welcome to contribute or open an [issue](https://github.com/xremix/xGallerify/issues).  
+The maximal image height helps to show multiple images in a row, if the images do have a very high ratio like 3:9.
+
+#### Predefined Modes
+
+| Mode| Breakpoint | Images per row |
+| ---------------- | ---------------- | ---------------- |
+| **default mode** | Container width > 1800 | 4 |
+|  | Container width > 1200 | 3 |
+|  | Container width > 768 | 2 |
+|  | Container width < 768 | 1 |
+|  | Maximal image height | Screen Height * 0.5 |
+| **bootstrap mode** | Container width > 1170 | 4 |
+|  | Container width > 970 | 3 |
+|  | Container width > 750 | 2 |
+|  | Container width < 750 | 1 |
+|  | Maximal image height | Screen Height * 0.5 |
+| **bootstrapv4 mode** | Container width > 1200 | 4 |
+|  | Container width > 992 | 3 |
+|  | Container width > 768 | 2 |
+|  | Container width < 768 | 1 |
+|  | Maximal image height | Screen Height * 0.5 |
+| **flickr mode** | Container width > 1800 | 4 |
+|  | Container width > 1300 | 3 |
+|  | Container width > 610 | 2 |
+|  | Container width < 610 | 1 |
+|  | Maximal image height | Screen Height * 0.4 |
+| **small mode** | Container width > 1800 | 14 |
+|  | Container width > 1300 | 10 |
+|  | Container width > 610 | 6 |
+|  | Container width < 610 | 4 |
+|  | Maximal image height | Screen Height * 0.4 |
+
+#### Custom Modes
+
+The mode parameter can also be an object that defnies the breakpoints and max height of an image.  
+Check out the [Codepen](http://codepen.io/xremix/pen/QyqJzQ) demo or the following sample object:
+
+```JS
+var gallery = $('.photos').gallerify({
+	margin:5,
+	mode:{
+		maxHeight: screen.height * 0.5,
+		breakPoints:[
+			{
+				minWidth: 1170,
+				columns: 10,
+			},{
+				minWidth: 970,
+				columns: 6,
+			},{
+				minWidth: 750,
+				columns: 3,
+			},{
+				maxWidth: 750,
+				columns: 2,
+			}
+		]
+	},
+	lastRow:'adjust'
+});	
+```
 
 ## Functions
 
@@ -83,38 +150,6 @@ $('.photos').append('<img src="sample-image3.jpg">');
 
 $('.photos').gallerify.renderAsyncImages();
 ```
-
-## Modes
-
-The modes property defines **how many** images do show at what **container width**
-
-*NOTE*
-If you want to have another mode you are welcome to contribute or open an [issue](https://github.com/xremix/xGallerify/issues).  
-The maximal image height helps to show multiple images in a row, if the images do have a very high ratio like 3:9.
-
-| Mode| Breakpoint | Images per row |
-| ---------------- | ---------------- | ---------------- |
-| **default mode** | Container width > 1800 | 4 |
-|  | Container width > 1200 | 3 |
-|  | Container width > 768 | 2 |
-|  | Container width < 768 | 1 |
-|  | Maximal image height | Screen Height * 0.5 |
-| **bootstrap mode** | Container width > 1200 | 4 |
-|  | Container width > 992 | 3 |
-|  | Container width > 768 | 2 |
-|  | Container width < 768 | 1 |
-|  | Maximal image height | Screen Height * 0.5 |
-| **flickr mode** | Container width > 1800 | 4 |
-|  | Container width > 1300 | 3 |
-|  | Container width > 610 | 2 |
-|  | Container width < 610 | 1 |
-|  | Maximal image height | Screen Height * 0.4 |
-| **small mode** | Container width > 1800 | 14 |
-|  | Container width > 1300 | 10 |
-|  | Container width > 610 | 6 |
-|  | Container width < 610 | 4 |
-|  | Maximal image height | Screen Height * 0.4 |
-
 
 ## Community
 
