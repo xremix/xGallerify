@@ -59,28 +59,18 @@
 			setupChilds(jGallery, params.margin);
 		}
 		jGallery.addClass("xgallerify");
+		// Render Gallery, if window has not been loaded yet
 		if(windowHasLoaded){
 			renderGallery(jGallery, params);
-		}else{
+		}else{ // Eventlistener for wondow load, to load gallery after window has been loaded
 			$(window).on("load", function(){
 				renderGallery(jGallery, params);
 			});
 		}
-		// if(params.continuousResizeRender){
-			$(window).resize(function(){
-				renderGallery(jGallery, params);
-			});
-		// }else{
-		// 	$(window).bind('resizeEnd', function() {
-		// 	    renderGallery(jGallery, params);
-		// 	});
-		// 	 $(window).resize(function() {
-		//         if(this.resizeTO) clearTimeout(this.resizeTO);
-		//         this.resizeTO = setTimeout(function() {
-		//             $(this).trigger('resizeEnd');
-		//         }, 50);
-		//     });
-		// }
+		// Render Gallery when window got resized
+		$(window).resize(function(){
+			renderGallery(jGallery, params);
+		});
 	}
 
 	function setupChilds(jGallery, margin){
@@ -120,10 +110,10 @@
 					jChildRows.push(jChildren);
 					if(
 						!(
-							i == dChildren.length -1 //Check if last row
-							&& jChildren.length < screenSettings.itemsPerRow // Check if the miminum items per row are reched
-						) //Checking if current row is a complete row
-						|| _params.lastRow == "fullwidth" //check if a non-complete row should be displayed with the full width
+							i == dChildren.length -1 && //Check if last row
+							jChildren.length < screenSettings.itemsPerRow // Check if the miminum items per row are reched
+						) || //Checking if current row is a complete row
+						_params.lastRow == "fullwidth" //check if a non-complete row should be displayed with the full width
 					){
 						lastRowHeight = renderRow(jChildRows[jChildRows.length - 1], width, _params.margin, screenSettings.maxHeight);
 					}else{ //adjust
