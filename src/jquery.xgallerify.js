@@ -117,7 +117,7 @@
 					){
 						lastRowHeight = renderRow(jChildRows[jChildRows.length - 1], width, _params.margin, screenSettings.maxHeight);
 					}else{
-						if(_params.lastRow === 'hidden'){
+						if(_params.lastRow === 'hidden' && imagesPerRow !== 1){
 							hideRow(jChildren); // Don't render last row
 						}else{ // default / adjust
 							renderLastRow(jChildRows[jChildRows.length - 1], width, _params.margin, lastRowHeight);		
