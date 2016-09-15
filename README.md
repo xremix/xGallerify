@@ -21,8 +21,7 @@ To see a real-live sample see the [Flickr Demo](https://rawgit.com/xremix/xGalle
 ```JS
 $('.photos').gallerify({
 	margin:10,
-	mode:'default',
-	lastRow:'adjust',
+	mode:'default'
 });
 ```
 
@@ -48,11 +47,11 @@ Check out the full working [CodePen Demo](http://codepen.io/xremix/pen/QyqJzQ) f
 
 ## Parameters
 
-| Name | Default | Type | Description |
+| Name | Default / Options | Type | Description |
 |---|---|---|---|
 | `margin` | e.g. `10`  | `int` | Value in pixels of the margin of each image on each side  |
 | `mode` | `default`, `bootstrap`, `bootstrapv4`, `flickr`, `small` or custom object  | `string` or `object` | The style mode wich defines how the gallery should be displayed and how many images fit in a row. See description in the mode section. |
-| `lastRow` | `adjust` or `fullwidth` | `string` | Set the last row to the full width or find a good adjustment. *NOTE:* I personally prefer `adjust`. |
+| `lastRow` | `adjust`, `fullwidth` or `hidden` | `string` | Set the last row to the full width, hide it or find a good adjustment. *NOTE:* I personally prefer `adjust`, wich is also the default. |
 | `jsSetup` | `true` or `false` | `bool` | Sets some default CSS values to the elements like `dislay:inline-block` and for each image inside of a container `width:100%`. This can be disabled if you want to have your own floating or style this in plain CSS. |
 | `debounceLoad` | `true` or `false` | `bool` | This functionality waits `50ms` before rendering a new loaded image to boost the performance on older machines. Default is set to `true`. |
 | `debounceTime` | `50` | `int` | Set the time for the **debounceLoad**. Default is set to 50ms. |

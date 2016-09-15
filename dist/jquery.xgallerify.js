@@ -116,8 +116,13 @@
 						_params.lastRow == "fullwidth" //check if a non-complete row should be displayed with the full width
 					){
 						lastRowHeight = renderRow(jChildRows[jChildRows.length - 1], width, _params.margin, screenSettings.maxHeight);
-					}else{ //adjust
-						renderLastRow(jChildRows[jChildRows.length - 1], width, _params.margin, lastRowHeight);	
+					}else{
+						if(_params.lastRow === 'hidden'){
+							hideRow(jChildren); // Don't render last row
+						}else{ // default / adjust
+							renderLastRow(jChildRows[jChildRows.length - 1], width, _params.margin, lastRowHeight);		
+						}
+						
 					}
 
 					if(lastRowHeight < screenSettings.maxHeight){ //If the row height is smaller than the maxHeight property beginn a new row. Otherwise add another image to decrese the height
@@ -141,6 +146,10 @@
 			rowHeight = resizeToWidth(jChildren, galleryWidth, margin);
 		}
 		return rowHeight;
+	}
+	function hideRow(jChildren){
+		$(jChildren).each( function(){ $(this).css("display", "none"); });
+		return 0; // Return height of 0px, to be consistent with other render functions
 	}
 
 	function resizeToSameHeight(jChildren, childHeight){
