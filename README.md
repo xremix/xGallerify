@@ -53,8 +53,7 @@ Check out the full working [CodePen Demo](http://codepen.io/xremix/pen/QyqJzQ) f
 | `mode` | `default`, `bootstrap`, `bootstrapv4`, `flickr`, `small` or custom object  | `string` or `object` | The style mode wich defines how the gallery should be displayed and how many images fit in a row. See description in the mode section. |
 | `lastRow` | `adjust`, `fullwidth` or `hidden` | `string` | Set the last row to the full width, hide it or find a good adjustment. *NOTE:* I personally prefer `adjust`, wich is also the default. |
 | `jsSetup` | `true` or `false` | `bool` | Sets some default CSS values to the elements like `dislay:inline-block` and for each image inside of a container `width:100%`. This can be disabled if you want to have your own floating or style this in plain CSS. |
-| `debounceLoad` | `true` or `false` | `bool` | This functionality waits `50ms` before rendering a new loaded image to boost the performance on older machines. Default is set to `true`. |
-| `debounceTime` | `50` | `int` | Set the time for the **debounceLoad**. Default is set to 50ms. |
+| `debounceTime` | `0` | `int` | This functionality waits `x ms` before rendering a new loaded image to boost the performance on older machines. |
 | `width` | `800` | `int` | Width of the gallery in `px` - **Work in Progress!** It is recommended to use an outer div with a specific width to controll the width of the Gallery. |
 
 
