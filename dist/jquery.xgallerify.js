@@ -2,7 +2,7 @@
 "use strict";
 (function($){
 	var windowHasLoaded = false;
-	$(window).load(function(){
+	$(window).on('load', function(){
 		windowHasLoaded = true;
 	});
 
