@@ -160,7 +160,8 @@
 		var currentWidth = 0;
 		$(jChildren).each( function(){ currentWidth += $(this).width(); });
 		var marginTotal = (jChildren.length * (margin) * 2);
-		// Adding x pixel of margin to the whole gallery
+		// Adding 17 pixel of margin to the whole gallery because of some scrollbar issue
+		// TODO find workaround here
 		marginTotal += 17;
 		var factor = (rowWidth - marginTotal) / currentWidth;
 		for (var i = 0; i < jChildren.length; i++){
