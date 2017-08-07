@@ -61,7 +61,7 @@
 		// Render Gallery, if window has not been loaded yet
 		if(windowHasLoaded){
 			renderGallery(jGallery, params);
-		}else{ // Eventlistener for wondow load, to load gallery after window has been loaded
+		}else{ // Eventlistener for window load, to load gallery after window has been loaded
 			$(window).on('load', function(){
 				renderGallery(jGallery, params);
 			});
