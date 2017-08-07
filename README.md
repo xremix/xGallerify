@@ -29,7 +29,7 @@ In this sample `.photos` is a `<div>` containing the images. xGallerify will res
 
 #### Custom Styling
 You can put your images inside of div's and style them the way you want.
-Check out the full working [CodePen Demo](http://codepen.io/xremix/pen/QyqJzQ) for a sample with a custom styled div.
+Check out the full [CodePen Demo](http://codepen.io/xremix/pen/QyqJzQ) including all settings, for a sample with a custom styled div.
 
 
 ### CDN (jsDelivr)
