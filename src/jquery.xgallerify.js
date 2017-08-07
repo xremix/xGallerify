@@ -14,7 +14,6 @@
 	*/
 	$.fn.gallerify = $.fn.xgallerify =  $.fn.xGallerify = function(params){
 		var _this = this;
-
 		//Initial Parameters
 		params = params || {};
 		params.margin = params.margin !== undefined && params.margin !== null ? params.margin : 10;
@@ -83,12 +82,11 @@
 		.css("width", "100%")
 		.addClass("ximage-loaded");
 	}
-
 	function renderGallery(jGallery, _params){
 		var jChildren = []; //jquery childs
 		var jChildRows = []; //jquery childs
 		var dChildren = jGallery.children(); //dom childs
-		var width = _params.width || jGallery.width();
+		var width = _params.width || jGallery[0].clientWidth;
 		var screenSettings = getScreenSettings(width, _params.mode);
 		var imagesPerRow = _params.imagesPerRow || screenSettings.itemsPerRow;
 
@@ -97,7 +95,6 @@
 		if(_params.width){
 			jGallery.width(width);
 		}
-
 		//TODO This code looks a little too complex - seperate in multiple functions?!
 		for (var i = 0; i < dChildren.length; i++){
 			var _jChild = $(dChildren[i]);
@@ -105,7 +102,6 @@
 
 				
 				jChildren.push(_jChild);
-
 				if(jChildren.length >= imagesPerRow || i == dChildren.length -1){
 					jChildRows.push(jChildren);
 					if(
@@ -163,8 +159,6 @@
 	function resizeToWidth(jChildren, rowWidth, margin){
 		var currentWidth = 0;
 		$(jChildren).each( function(){ currentWidth += $(this).width(); });
-		//adding 4px to the margin to let the gallery float smooth
-		var factor = (rowWidth - (jChildren.length * (margin + 4) * 2)) / currentWidth;
 		for (var i = 0; i < jChildren.length; i++){
 			jChildren[i].css('width',  jChildren[i].width() * factor);
 		}
