@@ -2,7 +2,7 @@
 "use strict";
 (function($){
 	var windowHasLoaded = false;
-	$(window).load(function(){
+	$(window).on('load', function() {
 		windowHasLoaded = true;
 	});
 
@@ -62,7 +62,7 @@
 		if(windowHasLoaded){
 			renderGallery(jGallery, params);
 		}else{ // Eventlistener for wondow load, to load gallery after window has been loaded
-			$(window).on("load", function(){
+			$(window).on('load', function(){
 				renderGallery(jGallery, params);
 			});
 		}
