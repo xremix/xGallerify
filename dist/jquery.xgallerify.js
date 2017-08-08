@@ -1,5 +1,5 @@
 /* globals jQuery */
-/* Version v0.1.4 */
+/* Version v0.1.5 */
 'use strict';
 (function($){
 	var windowHasLoaded = false;
