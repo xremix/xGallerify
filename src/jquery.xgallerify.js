@@ -39,11 +39,11 @@
 		this.gallerify.renderAsyncImages = function(){
 			setupChilds(_this, params.margin);
 			if(params.debounceLoad){
-				_this.find("img").load(function(){
+				_this.find("img").on('load', function(){
 					asyncImagesLoadedFinished();
 				});
 			}else{
-				_this.find("img").load(function(){
+				_this.find("img").on('load', function(){
 					renderGallery(_this, params);
 				});	
 			}
