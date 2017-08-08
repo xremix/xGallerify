@@ -129,7 +129,7 @@ var gallery = $('.photos').gallerify({
 ## Functions
 
 ### Render
-If new images are added or loaded you can call `render` o reinitialize the gallery.
+If new images are added or loaded you can call `render` to reinitialize the gallery.
 This will only resize the images to fit again.
 ```JS
 $('.photos').gallerify();
