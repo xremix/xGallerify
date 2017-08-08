@@ -29,7 +29,7 @@ In this sample `.photos` is a `<div>` containing the images. xGallerify will res
 
 #### Custom Styling
 You can put your images inside of div's and style them the way you want.
-Check out the full working [CodePen Demo](http://codepen.io/xremix/pen/QyqJzQ) for a sample with a custom styled div.
+Check out the full [CodePen Demo](http://codepen.io/xremix/pen/QyqJzQ) including all settings, for a sample with a custom styled div.
 
 
 ### CDN (jsDelivr)
@@ -50,6 +50,7 @@ Check out the full working [CodePen Demo](http://codepen.io/xremix/pen/QyqJzQ) f
 | Name | Default / Options | Type | Description |
 |---|---|---|---|
 | `margin` | e.g. `10`  | `int` | Value in pixels of the margin of each image on each side  |
+| `galleryMargin` | e.g. `17`  | `int` | Value in pixels of the margin outside of the gallery. **This is set to 17px default because of some rendering issue on macOS Safari**  |
 | `mode` | `default`, `bootstrap`, `bootstrapv4`, `flickr`, `small` or custom object  | `string` or `object` | The style mode wich defines how the gallery should be displayed and how many images fit in a row. See description in the mode section. |
 | `lastRow` | `adjust`, `fullwidth` or `hidden` | `string` | Set the last row to the full width, hide it or find a good adjustment. *NOTE:* I personally prefer `adjust`, wich is also the default. |
 | `jsSetup` | `true` or `false` | `bool` | Sets some default CSS values to the elements like `dislay:inline-block` and for each image inside of a container `width:100%`. This can be disabled if you want to have your own floating or style this in plain CSS. |
@@ -127,7 +128,8 @@ var gallery = $('.photos').gallerify({
 ## Functions
 
 ### Render
-To reinitialize the gallery when new images are added / loaded
+If new images are added or loaded you can call `render` o reinitialize the gallery.
+This will only resize the images to fit again.
 ```JS
 $('.photos').gallerify();
 //...

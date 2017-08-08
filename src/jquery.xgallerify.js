@@ -1,8 +1,9 @@
 /* globals jQuery */
-"use strict";
+/* Version v0.1.4 */
+'use strict';
 (function($){
 	var windowHasLoaded = false;
-	$(window).load(function(){
+	$(window).on('load', function() {
 		windowHasLoaded = true;
 	});
 
@@ -14,17 +15,17 @@
 	*/
 	$.fn.gallerify = $.fn.xgallerify =  $.fn.xGallerify = function(params){
 		var _this = this;
-
 		//Initial Parameters
 		params = params || {};
 		params.margin = params.margin !== undefined && params.margin !== null ? params.margin : 10;
+		params.galleryMargin = params.galleryMargin !== undefined && params.galleryMargin !== null ? params.galleryMargin : 17; // 17px is the largest native scrollbar width state of 2017
 		params.width = params.width || undefined; //width of the whole gallery
 		params.mode = params.mode || 'default'; //default, bootstrap, flickr, small
 		params.jsSetup = params.jsSetup !== undefined && params.jsSetup !== null ? params.jsSetup : true; //if you are going to set the css variables for the elements in CSS
 		params.imagesPerRow = params.imagesPerRow || undefined; //How many images should show up at a MINIMUM
 		params.debounceLoad = params.debounceTime !== undefined && params.debounceTime !== null && (params.debounceTime % 1 === 0); // Check if debounce time is set and is a integer
 		params.debounceTime = params.debounceTime !== undefined && params.debounceTime !== null ? params.debounceTime : 50; //How many images should show up at a MINIMUM
-		params.lastRow = params.lastRow || "adjust";
+		params.lastRow = params.lastRow || 'adjust';
 		init(_this, params);
 
 		this.gallerify.render = function(){
@@ -39,11 +40,11 @@
 		this.gallerify.renderAsyncImages = function(){
 			setupChilds(_this, params.margin);
 			if(params.debounceLoad){
-				_this.find("img").load(function(){
+				_this.find('img').on('load', function(){
 					asyncImagesLoadedFinished();
 				});
 			}else{
-				_this.find("img").load(function(){
+				_this.find('img').on('load', function(){
 					renderGallery(_this, params);
 				});	
 			}
@@ -58,12 +59,12 @@
 		if(params.jsSetup){
 			setupChilds(jGallery, params.margin);
 		}
-		jGallery.addClass("xgallerify");
+		jGallery.addClass('xgallerify');
 		// Render Gallery, if window has not been loaded yet
 		if(windowHasLoaded){
 			renderGallery(jGallery, params);
-		}else{ // Eventlistener for wondow load, to load gallery after window has been loaded
-			$(window).on("load", function(){
+		}else{ // Eventlistener for window load, to load gallery after window has been loaded
+			$(window).on('load', function(){
 				renderGallery(jGallery, params);
 			});
 		}
@@ -76,19 +77,18 @@
 	function setupChilds(jGallery, margin){
 		var jChildren = $(jGallery.children());
 		jChildren
-		.css("display", "inline-block")
-		.css("margin", margin)
+		.css('display', 'inline-block')
+		.css('margin', margin)
 
-		.find("img")
-		.css("width", "100%")
-		.addClass("ximage-loaded");
+		.find('img')
+		.css('width', '100%')
+		.addClass('ximage-loaded');
 	}
-
 	function renderGallery(jGallery, _params){
 		var jChildren = []; //jquery childs
 		var jChildRows = []; //jquery childs
 		var dChildren = jGallery.children(); //dom childs
-		var width = _params.width || jGallery.width();
+		var width = _params.width || jGallery[0].clientWidth;
 		var screenSettings = getScreenSettings(width, _params.mode);
 		var imagesPerRow = _params.imagesPerRow || screenSettings.itemsPerRow;
 
@@ -97,7 +97,6 @@
 		if(_params.width){
 			jGallery.width(width);
 		}
-
 		//TODO This code looks a little too complex - seperate in multiple functions?!
 		for (var i = 0; i < dChildren.length; i++){
 			var _jChild = $(dChildren[i]);
@@ -105,7 +104,6 @@
 
 				
 				jChildren.push(_jChild);
-
 				if(jChildren.length >= imagesPerRow || i == dChildren.length -1){
 					jChildRows.push(jChildren);
 					if(
@@ -113,16 +111,15 @@
 							i == dChildren.length -1 && //Check if last row
 							jChildren.length < screenSettings.itemsPerRow // Check if the miminum items per row are reched
 						) || //Checking if current row is a complete row
-						_params.lastRow == "fullwidth" //check if a non-complete row should be displayed with the full width
+						_params.lastRow == 'fullwidth' //check if a non-complete row should be displayed with the full width
 					){
-						lastRowHeight = renderRow(jChildRows[jChildRows.length - 1], width, _params.margin, screenSettings.maxHeight);
+						lastRowHeight = renderRow(jChildRows[jChildRows.length - 1], width, _params.margin, _params.galleryMargin, screenSettings.maxHeight);
 					}else{
 						if(_params.lastRow === 'hidden' && imagesPerRow !== 1){
 							hideRow(jChildren); // Don't render last row
 						}else{ // default / adjust
-							renderLastRow(jChildRows[jChildRows.length - 1], width, _params.margin, lastRowHeight);		
+							renderLastRow(jChildRows[jChildRows.length - 1], width, _params.margin, _params.galleryMargin, lastRowHeight);		
 						}
-						
 					}
 
 					if(lastRowHeight < screenSettings.maxHeight){ //If the row height is smaller than the maxHeight property beginn a new row. Otherwise add another image to decrese the height
@@ -133,22 +130,22 @@
 		}
 	}
 
-	function renderRow(jChildren, galleryWidth, margin, maxHeight){
+	function renderRow(jChildren, galleryWidth, margin, galleryMargin, maxHeight){
 		resizeToSameHeight(jChildren, maxHeight);
-		return resizeToWidth(jChildren, galleryWidth, margin); //Returning height of the current row
+		return resizeToWidth(jChildren, galleryWidth, margin, galleryMargin); //Returning height of the current row
 	}
 
-	function renderLastRow(jChildren,  galleryWidth, margin, rowHeight){
+	function renderLastRow(jChildren,  galleryWidth, margin, galleryMargin, rowHeight){
 		rowHeight = resizeToSameHeight(jChildren, rowHeight);
 		var currentWidth = 0;
 		$(jChildren).each( function(){ currentWidth += $(this).width(); });
 		if(currentWidth > galleryWidth){
-			rowHeight = resizeToWidth(jChildren, galleryWidth, margin);
+			rowHeight = resizeToWidth(jChildren, galleryWidth, margin, galleryMargin);
 		}
 		return rowHeight;
 	}
 	function hideRow(jChildren){
-		$(jChildren).each( function(){ $(this).css("display", "none"); });
+		$(jChildren).each( function(){ $(this).css('display', 'none'); });
 		return 0; // Return height of 0px, to be consistent with other render functions
 	}
 
@@ -160,11 +157,14 @@
 		return jChildren[0].height(); //Returning height of the current row
 	}
 
-	function resizeToWidth(jChildren, rowWidth, margin){
+	function resizeToWidth(jChildren, rowWidth, margin, galleryMargin){
 		var currentWidth = 0;
 		$(jChildren).each( function(){ currentWidth += $(this).width(); });
-		//adding 4px to the margin to let the gallery float smooth
-		var factor = (rowWidth - (jChildren.length * (margin + 4) * 2)) / currentWidth;
+		var marginTotal = (jChildren.length * (margin) * 2);
+		// Adding 17 pixel of margin to the whole gallery because of some scrollbar issue
+		// TODO find workaround here
+		marginTotal += galleryMargin;
+		var factor = (rowWidth - marginTotal) / currentWidth;
 		for (var i = 0; i < jChildren.length; i++){
 			jChildren[i].css('width',  jChildren[i].width() * factor);
 		}
@@ -172,10 +172,10 @@
 	}
 
 	function getMode(_mode){
-		if(typeof _mode === "object"){
+		if(typeof _mode === 'object'){
 			return _mode;
 		}else{
-			if(_mode == "bootstrap"){ // ------- bootstrap mode -------
+			if(_mode == 'bootstrap'){ // ------- bootstrap mode -------
 				return{
 					maxHeight: screen.height * 0.5,
 					breakPoints:[
@@ -194,7 +194,7 @@
 						}
 					]
 				};
-			}else if(_mode == "bootstrapv4"){ // ------- bootstrap mode -------
+			}else if(_mode == 'bootstrapv4'){ // ------- bootstrap mode -------
 				return{
 					maxHeight: screen.height * 0.5,
 					breakPoints:[
@@ -213,7 +213,7 @@
 						}
 					]
 				};
-			}else if(_mode == "flickr"){ // ------- flickr mode -------
+			}else if(_mode == 'flickr'){ // ------- flickr mode -------
 				return{
 					maxHeight: screen.height * 0.4,
 					breakPoints:[
@@ -232,7 +232,7 @@
 						}
 					]
 				};
-			}else if(_mode == "small"){ // ------- small mode -------
+			}else if(_mode == 'small'){ // ------- small mode -------
 				return{
 					maxHeight: screen.height * 0.4,
 					breakPoints:[
