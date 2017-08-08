@@ -23,7 +23,7 @@
 		params.mode = params.mode || 'default'; //default, bootstrap, flickr, small
 		params.jsSetup = params.jsSetup !== undefined && params.jsSetup !== null ? params.jsSetup : true; //if you are going to set the css variables for the elements in CSS
 		params.imagesPerRow = params.imagesPerRow || undefined; //How many images should show up at a MINIMUM
-		params.debounceLoad = params.debounceLoad !== undefined && params.debounceLoad !== null ? params.debounceLoad : true; //How many images should show up at a MINIMUM
+		params.debounceLoad = params.debounceTime !== undefined && params.debounceTime !== null && (params.debounceTime % 1 === 0); // Check if debounce time is set and is a integer
 		params.debounceTime = params.debounceTime !== undefined && params.debounceTime !== null ? params.debounceTime : 50; //How many images should show up at a MINIMUM
 		params.lastRow = params.lastRow || 'adjust';
 		init(_this, params);
