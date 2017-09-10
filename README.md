@@ -36,12 +36,12 @@ Check out the full [CodePen Demo](http://codepen.io/xremix/pen/QyqJzQ) including
 
 ```HTML
 <!-- Latest Version -->
-<script src="https://cdn.jsdelivr.net/jquery.xgallerify/latest/jquery.xgallerify.min.js"></script>
-<script src="https://cdn.jsdelivr.net/jquery.xgallerify/latest/jquery.xgallerify.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xgallerify@latest/dist/jquery.xgallerify.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xgallerify@latest/dist/jquery.xgallerify.js"></script>
 
 
 <!-- Specific Version -->
-<script src="https://cdn.jsdelivr.net/jquery.xgallerify/0.0.14/jquery.xgallerify.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xgallerify@0.1.5/dist/jquery.xgallerify.min.js"></script>
 ```
 
 
