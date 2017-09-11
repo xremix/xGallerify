@@ -148,6 +148,12 @@
 		$(jChildren).each( function(){ $(this).css('display', 'none'); });
 		return 0; // Return height of 0px, to be consistent with other render functions
 	}
+	function hideImage(jImage){
+		$(jImage).css('display', 'none');
+	}
+	function showImage(jImage){
+		$(jImage).css('display', 'inline-block');
+	}
 
 	function resizeToSameHeight(jChildren, childHeight){
 		for (var i = 0; i < jChildren.length; i++){
