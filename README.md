@@ -1,6 +1,7 @@
 # xGallerify
 [![npm version](https://badge.fury.io/js/xgallerify.svg)](https://badge.fury.io/js/xgallerify)
 [![Bower version](https://badge.fury.io/bo/xGallerify.svg)](https://badge.fury.io/bo/xGallerify)
+[![](https://data.jsdelivr.com/v1/package/npm/xgallerify/badge)](https://www.jsdelivr.com/package/npm/xgallerify)
 
 A lightweight, responsive, smart gallery based on jQuery.
 
@@ -42,8 +43,21 @@ Check out the full [CodePen Demo](http://codepen.io/xremix/pen/QyqJzQ) including
 
 <!-- Specific Version -->
 <script src="https://cdn.jsdelivr.net/npm/xgallerify@0.1.5/dist/jquery.xgallerify.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xgallerify@0.1.5/dist/jquery.xgallerify.js"></script>
 ```
 
+#### Alternate CDN (rawgit)
+If you want to serve a specific version / branch from github.com you can use the rawgit CDN
+
+```HTML
+
+<!-- Master Branch -->
+<script src="https://rawgit.com/xremix/xGallerify/master/dist/jquery.xgallerify.js"></script>
+
+<!-- Develop Branch -->
+<script src="https://rawgit.com/xremix/xGallerify/develop/dist/jquery.xgallerify.js"></script>
+
+```
 
 ## Parameters
 
