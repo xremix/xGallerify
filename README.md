@@ -33,7 +33,9 @@ You can put your images inside of div's and style them the way you want.
 Check out the full [CodePen Demo](http://codepen.io/xremix/pen/QyqJzQ) including all settings, for a sample with a custom styled div.
 
 
-### CDN (jsDelivr)
+### CDN [jsDelivr](https://www.jsdelivr.com/package/npm/xgallerify)
+
+The official CDN for xGallerify is hosted on [jsDelivr](https://www.jsdelivr.com/package/npm/xgallerify) and will support the latest version (served from NPM).
 
 ```HTML
 <!-- Latest Version -->
