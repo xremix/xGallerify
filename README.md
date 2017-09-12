@@ -29,7 +29,7 @@ $('.photos').gallerify({
 In this sample `.photos` is a `<div>` containing the images. xGallerify will resize the images in a pleasant way for you.
 
 #### Custom Styling
-You can put your images inside of div's and style them the way you want.
+Images can be put inside of div's and styled on your own.
 Check out the full [CodePen Demo](http://codepen.io/xremix/pen/QyqJzQ) including all settings, for a sample with a custom styled div.
 
 
@@ -49,7 +49,7 @@ The official CDN for xGallerify is hosted on [jsDelivr](https://www.jsdelivr.com
 ```
 
 #### Alternate CDN (rawgit)
-If you want to serve a specific version / branch from github.com you can use the rawgit CDN
+Specific branch versions directly from github.com are hosted at the rawgit CDN.
 
 ```HTML
 
