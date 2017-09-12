@@ -49,7 +49,7 @@ The official CDN for xGallerify is hosted on [jsDelivr](https://www.jsdelivr.com
 ```
 
 #### Alternate CDN (rawgit)
-Specific branch versions directly from github.com are hosted at the rawgit CDN.
+Specific branch versions directly from github.com are hosted at the [rawgit CDN](https://rawgit.com).
 
 ```HTML
 
