@@ -1,6 +1,7 @@
 # xGallerify
 [![npm version](https://badge.fury.io/js/xgallerify.svg)](https://badge.fury.io/js/xgallerify)
 [![Bower version](https://badge.fury.io/bo/xGallerify.svg)](https://badge.fury.io/bo/xGallerify)
+[![](https://data.jsdelivr.com/v1/package/npm/xgallerify/badge)](https://www.jsdelivr.com/package/npm/xgallerify)
 
 A lightweight, responsive, smart gallery based on jQuery.
 
@@ -28,11 +29,13 @@ $('.photos').gallerify({
 In this sample `.photos` is a `<div>` containing the images. xGallerify will resize the images in a pleasant way for you.
 
 #### Custom Styling
-You can put your images inside of div's and style them the way you want.
+Images can be put inside of div's and styled on your own.
 Check out the full [CodePen Demo](http://codepen.io/xremix/pen/QyqJzQ) including all settings, for a sample with a custom styled div.
 
 
-### CDN (jsDelivr)
+### CDN [jsDelivr](https://www.jsdelivr.com/package/npm/xgallerify)
+
+The official CDN for xGallerify is hosted on [jsDelivr](https://www.jsdelivr.com/package/npm/xgallerify) and will support the latest version (served from NPM).
 
 ```HTML
 <!-- Latest Version -->
@@ -42,8 +45,21 @@ Check out the full [CodePen Demo](http://codepen.io/xremix/pen/QyqJzQ) including
 
 <!-- Specific Version -->
 <script src="https://cdn.jsdelivr.net/npm/xgallerify@0.1.5/dist/jquery.xgallerify.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xgallerify@0.1.5/dist/jquery.xgallerify.js"></script>
 ```
 
+#### Alternate CDN (rawgit)
+Specific branch versions directly from github.com are hosted at the [rawgit CDN](https://rawgit.com).
+
+```HTML
+
+<!-- Master Branch -->
+<script src="https://rawgit.com/xremix/xGallerify/master/dist/jquery.xgallerify.js"></script>
+
+<!-- Develop Branch -->
+<script src="https://rawgit.com/xremix/xGallerify/develop/dist/jquery.xgallerify.js"></script>
+
+```
 
 ## Parameters
 
