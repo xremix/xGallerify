@@ -1,3 +1,5 @@
+/* globals module, __dirname */
+'use strict';
 module.exports = {
     entry: "./src/jquery.xgallerify.js",
     output: {
@@ -8,5 +10,11 @@ module.exports = {
         loaders: [
             // { test: /\.css$/, loader: "style!css" }
         ]
-    }
+    },
+    // plugins: [
+    //     new webpack.optimize.UglifyJsPlugin({
+    //       include: /\.min\.js$/,
+    //       minimize: true
+    //     })
+    // ]
 };
