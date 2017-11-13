@@ -167,7 +167,24 @@ $('.photos').append('<img src="sample-image3.jpg">');
 $('.photos').gallerify.renderAsyncImages();
 ```
 
-## Community
+# Build
+Currently you can build using Gulp or Webpack, or using Docker
+## Local
+Run `gulp`
+### Web Pack
+`webpack --watch --optimize-minimize`
+**NOTE** currently this isnot storing file to .min.js
+Webpack uglify not working right now
+
+### Gulp
+
+## Docker
+`docker build -t xgallerify . && docker run xgallerify`
+
+### Convox
+`convox start`
+
+# Community
 
 xGallerify AngularJS directive: [JohnnyTheTank/angular-xGallerify](https://github.com/JohnnyTheTank/angular-xGallerify)
 
