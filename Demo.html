@@ -7,7 +7,7 @@
 
 	<title>xGallerify</title>
 
-	<!-- CSS -->
+	<!-- CSS for styling the images and texts-->
 	<style type="text/css">
 		body {
 			text-align: center;
@@ -34,7 +34,9 @@
 	</style>
 </head>
 <body>
+	<!-- Container with all the images -->
 	<div class="photos">
+		<!-- a single image -->
 		<div class="photo">
 			<img src="http://placehold.it/600x400">
 			<div class="title">1</div>
@@ -149,6 +151,7 @@
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script src="dist/jquery.xgallerify.js"></script> <!-- This paths works localy and with the CDN sample -->
 	<script type="text/javascript">
+		'use strict';
 		var gallery = $('.photos').gallerify({
 			margin:5,
 			mode:'default',
