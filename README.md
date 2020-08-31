@@ -5,7 +5,7 @@
 [![Status Deprecated](https://img.shields.io/badge/Status-Deprecated-dd741f.svg)](https://github.com/xremix/ng-xGallerify)
 
 
-**There is a new version of this project, based on angular**
+**!!!!There is a new version of this project, based on angular!!!!**
 **Please check [xremix/ng-xGallerify](https://github.com/xremix/ng-xGallerify) for the latest version of this project. This project will still be maintained with bug fixes.**
 
 
