@@ -3,6 +3,10 @@
 [![Bower version](https://badge.fury.io/bo/xGallerify.svg)](https://badge.fury.io/bo/xGallerify)
 [![](https://data.jsdelivr.com/v1/package/npm/xgallerify/badge)](https://www.jsdelivr.com/package/npm/xgallerify)
 
+**There is a new version of this project, based on angular**
+**Please check [xremix/ng-xGallerify](https://github.com/xremix/ng-xGallerify) for the latest version of this project. This project will still be maintained with bug fixes.**
+
+
 A lightweight, responsive, smart gallery based on jQuery.
 
 - Responsive
@@ -138,7 +142,7 @@ var gallery = $('.photos').gallerify({
 		]
 	},
 	lastRow:'adjust'
-});	
+});
 ```
 
 ## Functions
@@ -170,8 +174,10 @@ $('.photos').gallerify.renderAsyncImages();
 ## Community
 
 xGallerify AngularJS directive: [JohnnyTheTank/angular-xGallerify](https://github.com/JohnnyTheTank/angular-xGallerify)
+xGallerify Angular component: [xremix/ng-xGallerify](https://github.com/xremix/ng-xGallerify)
+
 
 Thanks everyone for contributing. Suggestions are always welcome.  
 Also I'm happy to hear in which projects you've used the library.
 
-![Analytics](https://ga-beacon.appspot.com/UA-40522413-9/xGallerify/readme?pixel)
+[![Analytics](https://ga-beacon.appspot.com/UA-40522413-9/xGallerify/readme)](https://github.com/xremix/xGallerify)
